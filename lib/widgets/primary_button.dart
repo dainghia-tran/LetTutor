@@ -4,12 +4,16 @@ class PrimaryButton extends StatefulWidget {
   final bool isDisabled;
   final onPressed;
   final String text;
+  final double? width;
+  final double? height;
 
   const PrimaryButton(
       {Key? key,
-        required this.isDisabled,
-        required this.onPressed,
-        required this.text})
+      required this.isDisabled,
+      required this.onPressed,
+      required this.text,
+      this.width,
+      this.height})
       : super(key: key);
 
   @override
@@ -24,11 +28,12 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       fillColor: Colors.blue,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       child: Container(
-        height: 50,
+        height: widget.height ?? 50,
         alignment: Alignment.center,
-        width: double.infinity,
+        width: widget.width ?? double.infinity,
         child: Text(widget.text,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
   }

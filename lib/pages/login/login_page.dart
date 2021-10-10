@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 16),
                     TextFormField(
                       maxLines: 1,
+                      obscureText: true,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
