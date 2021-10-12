@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/widgets/tag.dart';
+import 'package:lettutor/widgets/tutor_card.dart';
+
+const description1 = "Being a teacher is what I live for. Making a difference in a student's life, and seeing them progress and achieve their language goal, is the biggest pleasure in my life.";
 
 class FindTutorPage extends StatefulWidget {
   const FindTutorPage({Key? key}) : super(key: key);
@@ -77,6 +80,24 @@ class _FindTutorPageState extends State<FindTutorPage> {
               child: Text(
                 'Recommended Tutors',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: TutorCard(isFavorite: true, name: 'Tran Nghia', stars: 4.5, tags: ['English', 'Maths', 'Physics'], description: description1,),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: TutorCard(isFavorite: false, name: 'David Beckham', stars: 3.5, tags: ['English', 'Football'], description: description1,),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: TutorCard(isFavorite: true, name: 'Issac Newton', stars: 4, tags: ['Maths', 'Physics'], description: description1,),
+                  )
+                ],
               ),
             )
           ],

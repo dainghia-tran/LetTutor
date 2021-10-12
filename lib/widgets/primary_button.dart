@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatefulWidget {
@@ -6,6 +7,7 @@ class PrimaryButton extends StatefulWidget {
   final String text;
   final double? width;
   final double? height;
+  final IconData? icon;
 
   const PrimaryButton(
       {Key? key,
@@ -13,7 +15,8 @@ class PrimaryButton extends StatefulWidget {
       required this.onPressed,
       required this.text,
       this.width,
-      this.height})
+      this.height,
+      this.icon})
       : super(key: key);
 
   @override
@@ -21,19 +24,45 @@ class PrimaryButton extends StatefulWidget {
 }
 
 class _PrimaryButtonState extends State<PrimaryButton> {
+  Widget icon = Container();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.icon != null) {
+      icon = Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: Icon(
+          widget.icon,
+          color: Colors.white,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: widget.isDisabled ? null : widget.onPressed,
-      fillColor: Colors.blue,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      child: Container(
-        height: widget.height ?? 50,
-        alignment: Alignment.center,
-        width: widget.width ?? double.infinity,
-        child: Text(widget.text,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+    return SizedBox(
+      height: widget.height ?? 50,
+      width: widget.width,
+      child: Card(
+        color: widget.isDisabled ? Colors.white10 : Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8)
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: widget.isDisabled ? null : widget.onPressed,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            child: Row(
+              children: [
+                icon,
+                Text(widget.text, style: const TextStyle(color: Colors.white),)
+              ],
+            ),
+          )
+        )
       ),
     );
   }
