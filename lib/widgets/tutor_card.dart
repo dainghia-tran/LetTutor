@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/primary_button.dart';
 import 'package:lettutor/widgets/secondary_button.dart';
 import 'package:lettutor/widgets/secondary_button_rounded.dart';
@@ -54,19 +54,7 @@ class _TutorCardState extends State<TutorCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fitHeight,
-                    height: 50,
-                    imageUrl:
-                        'http://static.boredpanda.com/blog/wp-content/uploads/2019/12/62144452_2261755747276811_7262549243119500388_n-5df0419c10749__700.jpg',
-                    placeholder: (context, url) =>
-                        const CupertinoActivityIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                ),
+                CustomCircleAvatar(avatarUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2019/12/62144452_2261755747276811_7262549243119500388_n-5df0419c10749__700.jpg'),
                 Icon(_isFavorite ? Boxicons.bxs_heart : Boxicons.bx_heart,
                     color: _isFavorite ? Colors.red : Colors.blue),
               ],
