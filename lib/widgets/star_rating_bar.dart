@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class StarRatingBar extends StatelessWidget {
-  StarRatingBar({Key? key, required this.stars, this.max}) : super(key: key);
+  const StarRatingBar({Key? key, required this.stars, this.max}) : super(key: key);
   final double stars;
-  int? max;
+  final int? max;
 
   @override
   Widget build(BuildContext context) {

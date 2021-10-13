@@ -58,6 +58,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon,
                     Text(widget.text, style: const TextStyle(color: Colors.blue),)
