@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  ExpandableText({Key? key, required this.content}) : super(key: key);
+  const ExpandableText({Key? key, required this.content}) : super(key: key);
   final String content;
 
   @override
@@ -9,25 +9,50 @@ class ExpandableText extends StatefulWidget {
 }
 
 class _ExpandableTextState extends State<ExpandableText> {
-  bool isExpanded = false;
+  late String firstHalf;
+  late String secondHalf;
+
+  bool flag = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.content.length > 100) {
+      firstHalf = widget.content.substring(0, 100);
+      secondHalf = widget.content.substring(100, widget.content.length);
+    } else {
+      firstHalf = widget.content;
+      secondHalf = "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Column(children: <Widget>[
-      new ConstrainedBox(
-          constraints: isExpanded
-              ? new BoxConstraints()
-              : new BoxConstraints(maxHeight: 50.0),
-          child: new Text(
-            widget.content,
-            softWrap: true,
-            overflow: TextOverflow.clip,
-          )),
-      isExpanded
-          ? new Container()
-          : new FlatButton(
-          child: const Text('...'),
-          onPressed: () => setState(() => isExpanded = true))
-    ]);
+    return Container(
+      child: secondHalf.isEmpty
+          ? Text(firstHalf)
+          : Column(
+        children: <Widget>[
+          Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              InkWell(
+                child: Text(
+                  flag ? "show more" : "show less",
+                  style: const TextStyle(color: Colors.blue),
+                ),
+                onTap: () {
+                  setState(() {
+                    flag = !flag;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
