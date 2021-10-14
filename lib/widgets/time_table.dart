@@ -9,11 +9,18 @@ class TimeTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Column(children: [
+    return Row(
+      children: [
+        Column(children: [
+          Container(
+            height: 50,
+            width: 120,
+            decoration: BoxDecoration(
+              color: const Color(0xFFD3D6DB),
+              border: Border.all(color: Colors.black26, width: 1),
+            ),
+          ),
+          for (var i = 0; i < 17; ++i)
             Container(
               height: 50,
               width: 120,
@@ -21,38 +28,21 @@ class TimeTable extends StatelessWidget {
                 color: const Color(0xFFD3D6DB),
                 border: Border.all(color: Colors.black26, width: 1),
               ),
-            ),
-            for (var i = 0; i < 17; ++i)
-              Container(
-                height: 50,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD3D6DB),
-                  border: Border.all(color: Colors.black26, width: 1),
-                ),
-                child: Center(
-                  child: Text(
-                    '${(i + 6).toString().padLeft(2, '0')}:${(i % 2 == 0 ? 30 : 00).toString().padLeft(2, '0')} - ${(i + 6).toString().padLeft(2, '0')}:55',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+              child: Center(
+                child: Text(
+                  '${(i + 6).toString().padLeft(2, '0')}:${(i % 2 == 0 ? 30 : 00).toString().padLeft(2, '0')} - ${(i + 6).toString().padLeft(2, '0')}:55',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-          ]),
-          Row(
-            children: [
-              for (var i = 0; i < 7; ++i)
-                Column(children: [
-                  Container(
-                    height: 50,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black26, width: 1),
-                    ),
-                    child: Center(
-                      child: Text(getWeekDay(i)),
-                    ),
-                  ),
-                  for (var i = 0; i < 17; ++i)
+            ),
+        ]),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (var i = 0; i < 7; ++i)
+                  Column(children: [
                     Container(
                       height: 50,
                       width: 120,
@@ -60,14 +50,26 @@ class TimeTable extends StatelessWidget {
                         border: Border.all(color: Colors.black26, width: 1),
                       ),
                       child: Center(
-                        child: getRandomStatus()
+                        child: Text(getWeekDay(i)),
                       ),
                     ),
-                ])
-            ],
-          )
-        ],
-      ),
+                    for (var i = 0; i < 17; ++i)
+                      Container(
+                        height: 50,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26, width: 1),
+                        ),
+                        child: Center(
+                          child: getRandomStatus()
+                        ),
+                      ),
+                  ])
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
