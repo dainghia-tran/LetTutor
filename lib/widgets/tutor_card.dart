@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
-import 'package:lettutor/widgets/button/primary_button.dart';
-import 'package:lettutor/widgets/button/secondary_button.dart';
 import 'package:lettutor/widgets/button/secondary_button_rounded.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';

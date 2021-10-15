@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/pages/private_message/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
