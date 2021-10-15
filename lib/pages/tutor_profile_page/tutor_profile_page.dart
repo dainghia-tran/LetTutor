@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lettutor/pages/private_message/private_message_page.dart';
+import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/expandable_text.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
@@ -16,18 +18,31 @@ class TutorProfilePage extends StatefulWidget {
 }
 
 class _TutorProfilePageState extends State<TutorProfilePage> {
+  var isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          leading: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {},
+        ),
+        centerTitle: true,
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+          child: SizedBox(
+            width: 150,
             child: SvgPicture.asset('assets/lettutor_logo.svg',
                 semanticsLabel: 'LetTutor logo'),
           ),
-          leadingWidth: 200),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -72,41 +87,69 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.message_outlined,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            'Message',
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const PrivateMessagePage(name: 'Tran Nghia'),
+                          ));
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.message_outlined,
+                              color: Colors.blue,
+                            ),
+                            Text(
+                              'Message',
+                              style: TextStyle(color: Colors.blue),
+                            )
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.favorite_border,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            'Favorite',
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isFavorite = !isFavorite;
+                          });
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.blue,
+                            ),
+                            Text(
+                              'Favorite',
+                              style: TextStyle(
+                                  color: isFavorite ? Colors.red : Colors.blue),
+                            )
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.report_outlined,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            'Report',
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const ReportDialog(
+                              name: 'Tran Nghia',
+                            ),
+                          );
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.report_outlined,
+                              color: Colors.blue,
+                            ),
+                            Text(
+                              'Report',
+                              style: TextStyle(color: Colors.blue),
+                            )
+                          ],
+                        ),
                       ),
                       Column(
                         children: const [

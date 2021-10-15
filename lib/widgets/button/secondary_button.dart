@@ -47,8 +47,8 @@ class _SecondaryButtonState extends State<SecondaryButton> {
           color: widget.isDisabled ? Colors.white10 : Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
-            side: const BorderSide(
-              color: Colors.blue,
+            side: BorderSide(
+              color: widget.isDisabled ? Colors.grey : Colors.blue,
               width: 1
             )
           ),
@@ -61,7 +61,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon,
-                    Text(widget.text, style: const TextStyle(color: Colors.blue),)
+                    Text(widget.text, style: TextStyle(color: widget.isDisabled ? Colors.grey : Colors.blue,),)
                   ],
                 ),
               )
