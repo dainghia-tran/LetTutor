@@ -32,7 +32,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
         padding: const EdgeInsets.only(right: 8),
         child: Icon(
           widget.icon,
-          color: Colors.blue,
+          color: widget.isDisabled ? Colors.grey : Colors.blue,
         ),
       );
     }

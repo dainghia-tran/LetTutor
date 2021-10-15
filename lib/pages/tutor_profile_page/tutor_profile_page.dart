@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/pages/private_message/private_message_page.dart';
+import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
+import 'package:lettutor/pages/tutor_profile_page/widgets/reviews_dialog.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/expandable_text.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
@@ -151,17 +153,25 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                           ],
                         ),
                       ),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.star_border_rounded,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            'Reviews',
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const ReviewsDialog(),
+                          );
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.star_border_rounded,
+                              color: Colors.blue,
+                            ),
+                            Text(
+                              'Reviews',
+                              style: TextStyle(color: Colors.blue),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -302,9 +312,16 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TimeTable(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: TimeTable(
+                onPressBook: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const BookScheduleDialog(),
+                  );
+                },
+              ),
             )
           ],
         ),

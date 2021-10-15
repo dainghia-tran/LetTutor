@@ -54,7 +54,7 @@ class _TutorCardState extends State<TutorCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomCircleAvatar(avatarUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2019/12/62144452_2261755747276811_7262549243119500388_n-5df0419c10749__700.jpg'),
+                const CustomCircleAvatar(avatarUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2019/12/62144452_2261755747276811_7262549243119500388_n-5df0419c10749__700.jpg'),
                 Icon(_isFavorite ? Boxicons.bxs_heart : Boxicons.bx_heart,
                     color: _isFavorite ? Colors.red : Colors.blue),
               ],
@@ -70,7 +70,8 @@ class _TutorCardState extends State<TutorCard> {
             Wrap(children: _tags),
             const SizedBox(height: 16,),
             Text(
-              widget.description ?? '',
+              widget.description ?? '',maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 16),
             Row(

@@ -99,7 +99,7 @@ class _FindTutorPageState extends State<FindTutorPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: TutorCard(
                   isFavorite: true,
@@ -109,7 +109,7 @@ class _FindTutorPageState extends State<FindTutorPage> {
                   description: description1,
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: TutorCard(
                   isFavorite: false,
@@ -119,7 +119,7 @@ class _FindTutorPageState extends State<FindTutorPage> {
                   description: description1,
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: TutorCard(
                   isFavorite: true,

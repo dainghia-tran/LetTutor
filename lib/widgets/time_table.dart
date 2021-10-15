@@ -5,7 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 
 class TimeTable extends StatelessWidget {
-  const TimeTable({Key? key}) : super(key: key);
+  const TimeTable({Key? key, required this.onPressBook}) : super(key: key);
+  final Function onPressBook;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +61,9 @@ class TimeTable extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black26, width: 1),
                         ),
-                        child: Center(
-                          child: getRandomStatus()
-                        ),
+                        child: Center(child: getRandomStatus((){
+                          onPressBook();
+                        })),
                       ),
                   ])
               ],
@@ -93,13 +94,22 @@ String getWeekDay(int order) {
   }
 }
 
-Widget getRandomStatus(){
+Widget getRandomStatus(Function onPressBook) {
   final rand = Random();
-  switch(rand.nextInt(3)){
+  switch (rand.nextInt(3)) {
     case 0:
-      return PrimaryButtonRounded(isDisabled: false, onPressed: (){}, text: 'Book',);
+      return PrimaryButtonRounded(
+        isDisabled: false,
+        onPressed: () {
+          onPressBook();
+        },
+        text: 'Book',
+      );
     case 1:
-      return const Text('Reserved', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black45),);
+      return const Text(
+        'Reserved',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black45),
+      );
     default:
       return Container();
   }
