@@ -39,6 +39,8 @@ dependencies:
   flutter_boxicons: ^3.0.0
   cached_network_image: ^3.1.0
   intl: ^0.17.0
+  country_picker: ^2.0.8
+  country_icons: ^2.0.2
 
 dev_dependencies:
   flutter_test:

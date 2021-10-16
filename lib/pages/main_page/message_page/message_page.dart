@@ -22,8 +22,17 @@ class _MessagePageState extends State<MessagePage> with AutomaticKeepAliveClient
       body: Container(
         padding: const EdgeInsets.all(16),
         child: Column(
-          children: const [
-            SearchBar(),
+          children: [
+            const SearchBar(),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.message_outlined),
+                  Text('No recent chat')
+                ],
+              ),
+            )
           ],
         ),
       ),
