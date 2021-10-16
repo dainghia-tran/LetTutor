@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
+import 'package:lettutor/pages/profile_page/profile_page.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 
@@ -26,18 +27,21 @@ class _SettingsPageState extends State<SettingsPage> with AutomaticKeepAliveClie
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: Column(
             children: [
-              Row(
-                children: [
-                  const CustomCircleAvatar(dimention: 70, avatarUrl: 'https://cdn.dribbble.com/users/1003944/screenshots/10412487/dribbble_angry_4x.gif?compress=1&resize=400x300'),
-                  const SizedBox(width: 8,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Dai Nghia Tran', style: TextStyle(fontSize: 16),),
-                      Text('dainghia@gmail.com', style: TextStyle(color: Colors.black54),)
-                    ],
-                  )
-                ],
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilePage(),)),
+                child: Row(
+                  children: [
+                      const CustomCircleAvatar(dimention: 75, avatarUrl: 'https://cdn.dribbble.com/users/1003944/screenshots/10412487/dribbble_angry_4x.gif?compress=1&resize=400x300'),
+                    const SizedBox(width: 8,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Dai Nghia Tran', style: TextStyle(fontSize: 16),),
+                        Text('dainghia@gmail.com', style: TextStyle(color: Colors.black54),)
+                      ],
+                    )
+                  ],
+                ),
               ),
               const SizedBox(height: 16,),
               const Padding(
