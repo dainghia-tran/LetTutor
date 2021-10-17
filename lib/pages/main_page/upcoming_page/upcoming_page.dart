@@ -21,14 +21,12 @@ class _UpcomingPageState extends State<UpcomingPage> with AutomaticKeepAliveClie
       body: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(16),
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.message_outlined),
-              Text('No data')
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.message_outlined),
+            Text('No data')
+          ],
         ),
       ),
     );

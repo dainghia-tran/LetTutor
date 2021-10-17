@@ -41,6 +41,8 @@ dependencies:
   intl: ^0.17.0
   country_picker: ^2.0.8
   country_icons: ^2.0.2
+  dotted_border: ^2.0.0+1
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +70,7 @@ flutter:
   assets:
     - assets/
     - assets/login/
+    - assets/become_tutor/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText({Key? key, required this.content}) : super(key: key);
+  const ExpandableText({Key? key, required this.content, this.style}) : super(key: key);
   final String content;
+  final TextStyle? style;
 
   @override
   _ExpandableTextState createState() => _ExpandableTextState();
@@ -31,10 +32,10 @@ class _ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? Text(firstHalf)
+          ? Text(firstHalf, style: widget.style,)
           : Column(
         children: <Widget>[
-          Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf)),
+          Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: widget.style),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

@@ -102,15 +102,18 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 8,
               ),
-              GestureDetector(
-                onTap: () => _selectDate(context),
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8)),
-                  height: 60,
-                  child: Center(
-                      child: Text(selectedDate.toString().split(' ')[0])),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8)),
+                height: 60,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(selectedDate.toString().split(' ')[0]),
+                    IconButton(onPressed: () => _selectDate(context), icon: const Icon(Icons.calendar_today_outlined, color: Colors.grey,))
+                  ],
                 ),
               ),
               const SizedBox(
@@ -145,11 +148,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
                 child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.grey),
                       borderRadius: BorderRadius.circular(8)),
                   height: 60,
-                  child: Center(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(countryName),
                   ),
                 ),
