@@ -8,6 +8,7 @@ class PrimaryButton extends StatefulWidget {
   final double? width;
   final double? height;
   final IconData? icon;
+  final Color? color;
 
   const PrimaryButton(
       {Key? key,
@@ -16,7 +17,8 @@ class PrimaryButton extends StatefulWidget {
       required this.text,
       this.width,
       this.height,
-      this.icon})
+      this.icon,
+      this.color})
       : super(key: key);
 
   @override
@@ -34,7 +36,9 @@ class _PrimaryButtonState extends State<PrimaryButton> {
         padding: const EdgeInsets.only(right: 8),
         child: Icon(
           widget.icon,
-          color: Colors.white,
+          size: 16,
+          color:
+              widget.isDisabled ? Colors.grey : (widget.color ?? Colors.white),
         ),
       );
     }
@@ -46,25 +50,30 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       height: widget.height ?? 50,
       width: widget.width,
       child: Card(
-        color: widget.isDisabled ? Colors.white10 : Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8)
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8),
-          onTap: widget.isDisabled ? null : widget.onPressed,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                icon,
-                Text(widget.text, style: const TextStyle(color: Colors.white),)
-              ],
-            ),
-          )
-        )
-      ),
+          color: widget.isDisabled ? Colors.white10 : Colors.blue,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: widget.isDisabled ? null : widget.onPressed,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon,
+                    Text(
+                      widget.text,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: widget.isDisabled
+                            ? Colors.grey
+                            : (widget.color ?? Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+              ))),
     );
   }
 }

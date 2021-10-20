@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
       create: (_) => MainPageBloc(),
       child: Consumer<MainPageBloc>(
           builder: (context, bloc, child) {
-            if (bloc.currentPageIndex != _pageController.page?.floor()) {
+            if (_pageController.hasClients && bloc.currentPageIndex != _pageController.page?.floor()) {
               _pageController.jumpToPage(bloc.currentPageIndex);
             }
             return Scaffold(

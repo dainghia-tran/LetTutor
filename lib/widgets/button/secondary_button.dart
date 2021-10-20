@@ -7,6 +7,7 @@ class SecondaryButton extends StatefulWidget {
   final double? width;
   final double? height;
   final IconData? icon;
+  final Color? color;
 
   const SecondaryButton(
       {Key? key,
@@ -14,7 +15,7 @@ class SecondaryButton extends StatefulWidget {
         required this.onPressed,
         required this.text,
         this.width,
-        this.height, this.icon})
+        this.height, this.icon, this.color})
       : super(key: key);
 
   @override
@@ -32,7 +33,8 @@ class _SecondaryButtonState extends State<SecondaryButton> {
         padding: const EdgeInsets.only(right: 8),
         child: Icon(
           widget.icon,
-          color: widget.isDisabled ? Colors.grey : Colors.blue,
+          size: 16,
+          color: widget.isDisabled ? Colors.grey : (widget.color ?? Colors.blue),
         ),
       );
     }
@@ -48,7 +50,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             side: BorderSide(
-              color: widget.isDisabled ? Colors.grey : Colors.blue,
+              color: widget.isDisabled ? Colors.grey : (widget.color ?? Colors.blue),
               width: 1
             )
           ),
@@ -58,10 +60,11 @@ class _SecondaryButtonState extends State<SecondaryButton> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon,
-                    Text(widget.text, style: TextStyle(color: widget.isDisabled ? Colors.grey : Colors.blue,),)
+                    Text(widget.text, style: TextStyle(fontSize: 12,color: widget.isDisabled ? Colors.grey : (widget.color ?? Colors.blue),),)
                   ],
                 ),
               )

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor/pages/main_page/main_page.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -89,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 16),
                     PrimaryButton(
                       isDisabled: false,
-                      onPressed: () => {},
+                      onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const MainPage())),
                       text: 'Log in',
                     ),
                     const SizedBox(height: 16),
