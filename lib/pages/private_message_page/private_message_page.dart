@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 
 class PrivateMessagePage extends StatefulWidget {
-  const PrivateMessagePage({Key? key, this.name}) : super(key: key);
+  const PrivateMessagePage({Key? key, required this.name}) : super(key: key);
   final name;
 
   @override

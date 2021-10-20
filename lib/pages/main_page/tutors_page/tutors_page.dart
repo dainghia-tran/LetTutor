@@ -1,6 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor/pages/private_message_page/private_message_page.dart';
+import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
 import 'package:lettutor/widgets/search_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 import 'package:lettutor/widgets/tutor_card.dart';
@@ -109,64 +111,100 @@ class _TutorsPageState extends State<TutorsPage> with AutomaticKeepAliveClientMi
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'Tran Nghia',))),
                         isFavorite: true,
                         name: 'Tran Nghia',
                         stars: 4.5,
-                        tags: ['English', 'Maths', 'Physics'],
+                        tags: const ['English', 'Maths', 'Physics'],
                         description: description1,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'David Beckham',))),
                         isFavorite: false,
                         name: 'David Beckham',
                         stars: 4,
-                        tags: ['English', 'Football'],
+                        tags: const ['English', 'Football'],
                         description: description1,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'Issac Newton',))),
                         isFavorite: true,
                         name: 'Issac Newton',
                         stars: 2.5,
-                        tags: ['Maths', 'Physics', 'English'],
+                        tags: const ['Maths', 'Physics', 'English'],
                         description: description1,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'Tran Nghia',))),
                         isFavorite: true,
                         name: 'Tran Nghia',
                         stars: 4.5,
-                        tags: ['English', 'Maths', 'Physics'],
+                        tags: const ['English', 'Maths', 'Physics'],
                         description: description1,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'David Beckham',))),
                         isFavorite: false,
                         name: 'David Beckham',
                         stars: 4,
-                        tags: ['English', 'Football'],
+                        tags: const ['English', 'Football'],
                         description: description1,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: TutorCard(
+                        onClickBook: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TutorProfilePage())),
+                        onClickMessage: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const PrivateMessagePage(name: 'Issac Newton',))),
                         isFavorite: true,
                         name: 'Issac Newton',
                         stars: 2.5,
-                        tags: ['Maths', 'Physics', 'English'],
+                        tags: const ['Maths', 'Physics', 'English'],
                         description: description1,
                       ),
                     )

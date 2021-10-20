@@ -13,13 +13,15 @@ class TutorCard extends StatefulWidget {
       required this.name,
       required this.stars,
       this.tags,
-      this.description})
+      this.description, required this.onClickBook, required this.onClickMessage})
       : super(key: key);
   final bool isFavorite;
   final String name;
   final double stars;
   final List<String>? tags;
   final String? description;
+  final onClickBook;
+  final onClickMessage;
 
   @override
   _TutorCardState createState() => _TutorCardState();
@@ -75,8 +77,8 @@ class _TutorCardState extends State<TutorCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SecondaryButtonRounded(isDisabled: false, onPressed: (){}, text: 'Book', icon: Boxicons.bx_calendar_check,),
-                SecondaryButtonRounded(isDisabled: false, onPressed: (){}, text: 'Message', icon: Boxicons.bx_message_dots,),
+                SecondaryButtonRounded(isDisabled: false, onPressed: widget.onClickBook, text: 'Book', icon: Boxicons.bx_calendar_check,),
+                SecondaryButtonRounded(isDisabled: false, onPressed: widget.onClickMessage, text: 'Message', icon: Boxicons.bx_message_dots,),
               ],
             )
           ],

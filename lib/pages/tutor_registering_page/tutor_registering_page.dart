@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lettutor/pages/tutor_registering/widgets/approval_step.dart';
-import 'package:lettutor/pages/tutor_registering/widgets/profile_step.dart';
-import 'package:lettutor/pages/tutor_registering/widgets/video_introduction_step.dart';
+import 'package:lettutor/pages/tutor_registering_page/widgets/approval_step.dart';
+import 'package:lettutor/pages/tutor_registering_page/widgets/profile_step.dart';
+import 'package:lettutor/pages/tutor_registering_page/widgets/video_introduction_step.dart';
 import 'package:lettutor/widgets/process_step.dart';
 
-class TutorRegistering extends StatefulWidget {
-  const TutorRegistering({Key? key}) : super(key: key);
+class TutorRegisteringPage extends StatefulWidget {
+  const TutorRegisteringPage({Key? key}) : super(key: key);
 
   @override
-  _TutorRegisteringState createState() => _TutorRegisteringState();
+  _TutorRegisteringPageState createState() => _TutorRegisteringPageState();
 }
 
-class _TutorRegisteringState extends State<TutorRegistering> {
+class _TutorRegisteringPageState extends State<TutorRegisteringPage> {
   var currentStep = 1;
 
   @override

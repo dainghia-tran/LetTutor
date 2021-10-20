@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage> {
           .of(context)
           .currentPageIndex;
       _pageController.jumpToPage(MainPageBloc
-          .of(context)
+          .of(context, listen: false)
           .currentPageIndex);
     });
     _pageController = PageController(initialPage: _currentPageIndex);

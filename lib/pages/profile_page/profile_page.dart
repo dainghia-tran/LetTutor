@@ -220,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(height: 32,),
-              PrimaryButtonRounded(isDisabled: false, onPressed: (){}, text: 'Save')
+              PrimaryButtonRounded(isDisabled: false, onPressed: () => Navigator.of(context).pop(), text: 'Save')
             ],
           ),
         ),

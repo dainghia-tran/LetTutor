@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lettutor/pages/private_message/private_message_page.dart';
+import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/reviews_dialog.dart';
@@ -32,7 +32,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
         title: Padding(
