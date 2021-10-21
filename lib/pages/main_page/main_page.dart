@@ -29,14 +29,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      _currentPageIndex = MainPageBloc
-          .of(context)
-          .currentPageIndex;
-      _pageController.jumpToPage(MainPageBloc
-          .of(context, listen: false)
-          .currentPageIndex);
-    });
+    _currentPageIndex = 0;
     _pageController = PageController(initialPage: _currentPageIndex);
   }
 
@@ -50,52 +43,49 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => MainPageBloc(),
-      child: Consumer<MainPageBloc>(
-          builder: (context, bloc, child) {
-            if (_pageController.hasClients && bloc.currentPageIndex != _pageController.page?.floor()) {
-              _pageController.jumpToPage(bloc.currentPageIndex);
-            }
-            return Scaffold(
-              body: PageView(
-                controller: _pageController,
-                children: pages,
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                unselectedItemColor: Colors.black26,
-                selectedItemColor: Colors.blue,
-                type: BottomNavigationBarType.fixed,
-                currentIndex: MainPageBloc
-                    .of(context)
-                    .currentPageIndex,
-                onTap: (index) {
-                  MainPageBloc.of(context, listen: false).changePage(index);
-                },
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home_outlined),
-                      activeIcon: Icon(Icons.home),
-                      label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.message_outlined),
-                      activeIcon: Icon(Icons.message),
-                      label: 'Message'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.access_time_outlined),
-                      activeIcon: Icon(Icons.access_time),
-                      label: 'Upcoming'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.people_outlined),
-                      activeIcon: Icon(Icons.people),
-                      label: 'Tutors'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.settings_outlined),
-                      activeIcon: Icon(Icons.settings),
-                      label: 'Settings'),
-                ],
-              ),
-            );
-          }
-      ),
+      child: Consumer<MainPageBloc>(builder: (context, bloc, child) {
+        if (_pageController.hasClients &&
+            bloc.currentPageIndex != _pageController.page?.floor()) {
+          _pageController.jumpToPage(bloc.currentPageIndex);
+        }
+        return Scaffold(
+          body: PageView(
+            controller: _pageController,
+            children: pages,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            unselectedItemColor: Colors.black26,
+            selectedItemColor: Colors.blue,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: MainPageBloc.of(context).currentPageIndex,
+            onTap: (index) {
+              MainPageBloc.of(context, listen: false).changePage(index);
+            },
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.message_outlined),
+                  activeIcon: Icon(Icons.message),
+                  label: 'Message'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.access_time_outlined),
+                  activeIcon: Icon(Icons.access_time),
+                  label: 'Upcoming'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.people_outlined),
+                  activeIcon: Icon(Icons.people),
+                  label: 'Tutors'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_outlined),
+                  activeIcon: Icon(Icons.settings),
+                  label: 'Settings'),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

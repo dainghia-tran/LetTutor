@@ -3,6 +3,7 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
 import 'package:lettutor/pages/profile_page/profile_page.dart';
+import 'package:lettutor/pages/session_history_page/session_history_page.dart';
 import 'package:lettutor/pages/tutor_registering_page/tutor_registering_page.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
@@ -75,10 +76,14 @@ class _SettingsPageState extends State<SettingsPage>
                 child:
                     SettingItem(text: 'Booking History', iconData: Icons.list),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: SettingItem(
-                    text: 'Session History', iconData: Icons.history),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SessionHistoryPage())),
+                  child: const SettingItem(
+                      text: 'Session History', iconData: Icons.history),
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 16),
