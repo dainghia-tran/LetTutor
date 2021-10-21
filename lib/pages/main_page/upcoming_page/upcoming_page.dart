@@ -35,11 +35,6 @@ class _UpcomingPageState extends State<UpcomingPage>
                   children: [
                     SvgPicture.asset('assets/schedule.svg'),
                     const Text(
-                      'Schedule',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const Text(
                       'Here is a list of the sessions you have booked',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
