@@ -52,6 +52,7 @@ class _MainPageState extends State<MainPage> {
           body: PageView(
             controller: _pageController,
             children: pages,
+            onPageChanged: (index) => MainPageBloc.of(context, listen: false).changePage(index),
           ),
           bottomNavigationBar: BottomNavigationBar(
             unselectedItemColor: Colors.black26,

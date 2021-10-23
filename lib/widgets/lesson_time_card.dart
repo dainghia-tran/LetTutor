@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/pages/lesson_room_page/lesson_room_page.dart';
+import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/button/secondary_button.dart';
 
 class LessonTimeCard extends StatefulWidget {
@@ -96,11 +98,13 @@ class _LessonTimeCardState extends State<LessonTimeCard> {
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 8,),
+          PrimaryButtonRounded(isDisabled: false, onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LessonRoomPage())), text: 'Enter lesson room')
         ],
       ),
     );
