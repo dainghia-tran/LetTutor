@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor/widgets/ebook.dart';
+import 'package:lettutor/pages/ebooks_page/widgets/ebook.dart';
 
 class EBooksPage extends StatefulWidget {
   const EBooksPage({Key? key}) : super(key: key);
@@ -66,6 +66,6 @@ class _EBooksPageState extends State<EBooksPage> {
     return List.generate(50, (index) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: EBook(name: 'Book $index', description: 'Description $index', level: level),
-    )).toList();
+    ));
   }
 }
