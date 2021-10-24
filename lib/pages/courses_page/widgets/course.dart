@@ -20,7 +20,7 @@ class Course extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: () => onPressed(),
       borderRadius: BorderRadius.circular(16),
       child: Container(
         width: 200,
