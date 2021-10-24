@@ -29,7 +29,7 @@ class _PrivateMessagePageState extends State<PrivateMessagePage> {
             const CustomCircleAvatar(
               avatarUrl:
                   'https://img.freepik.com/free-vector/cute-koala-with-cub-cartoon-icon-illustration_138676-2839.jpg?size=338&ext=jpg',
-              dimention: 32,
+              dimension: 32,
             ),
             const SizedBox(
               width: 8,

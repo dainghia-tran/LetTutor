@@ -13,7 +13,7 @@ class TutorCardCompat extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          const CustomCircleAvatar(avatarUrl: 'https://dev.api.lettutor.com/avatar/3b994227-2695-44d4-b7ff-333b090a45d4avatar1632047402615.jpg', dimention: 50,),
+          const CustomCircleAvatar(avatarUrl: 'https://dev.api.lettutor.com/avatar/3b994227-2695-44d4-b7ff-333b090a45d4avatar1632047402615.jpg', dimension: 50,),
           const SizedBox(width: 12,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

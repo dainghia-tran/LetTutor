@@ -3,19 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomCircleAvatar extends StatelessWidget {
-  const CustomCircleAvatar({Key? key, required this.avatarUrl, this.dimention})
+  const CustomCircleAvatar({Key? key, required this.avatarUrl, this.dimension})
       : super(key: key);
   final String avatarUrl;
-  final double? dimention;
+  final double? dimension;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular((dimention ?? 50) / 2),
+      borderRadius: BorderRadius.circular((dimension ?? 50) / 2),
       child: CachedNetworkImage(
         fit: BoxFit.cover,
-        height: dimention ?? 50,
-        width: dimention ?? 50,
+        height: dimension ?? 50,
+        width: dimension ?? 50,
         imageUrl: avatarUrl,
         placeholder: (context, url) => const CupertinoActivityIndicator(),
         errorWidget: (context, url, error) => const Icon(Icons.error),

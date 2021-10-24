@@ -12,7 +12,7 @@ class UserReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CustomCircleAvatar(dimention: 32, avatarUrl: 'https://uploads.scratch.mit.edu/users/avatars/61790528.png'),
+        const CustomCircleAvatar(dimension: 32, avatarUrl: 'https://uploads.scratch.mit.edu/users/avatars/61790528.png'),
         const SizedBox(width: 12,),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Stack(
                       children: const [
                         CustomCircleAvatar(
-                            dimention: 75,
+                            dimension: 75,
                             avatarUrl:
                                 'https://cdn.dribbble.com/users/1003944/screenshots/10412487/dribbble_angry_4x.gif?compress=1&resize=400x300'),
                         Positioned(

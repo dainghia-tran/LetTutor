@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor/widgets/lession_history_card.dart';
-import 'package:lettutor/widgets/lesson_time_card.dart';
 import 'package:lettutor/widgets/tutor_card_compact.dart';
 
 class SessionHistoryPage extends StatefulWidget {
@@ -22,7 +21,7 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
               floating: false,
               pinned: true,
               snap: false,
-              expandedHeight: 300,
+              expandedHeight: 200,
               leading: IconButton(
                   onPressed: () => Navigator.of(context).pop(),
                   icon: const Icon(
@@ -30,15 +29,24 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                     color: Colors.black,
                   )),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              flexibleSpace: FlexibleSpaceBar(
-                title: const Text(
-                  'Session history',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                background: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: SvgPicture.asset('assets/schedule.svg',)),
+              flexibleSpace: LayoutBuilder(
+                builder: (context, constraints) {
+                  final top = constraints.biggest.height;
+                  return FlexibleSpaceBar(
+                    title: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: top <= 100 ? 1.0 : 0.0,
+                      child: const Text(
+                        'Session history',
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ),
+                    background: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: SvgPicture.asset('assets/schedule.svg',)),
+                  );
+                },
               ),
             ),
             SliverToBoxAdapter(

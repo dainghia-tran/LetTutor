@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:lettutor/pages/booking_history_page/booking_history_page.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
 import 'package:lettutor/pages/profile_page/profile_page.dart';
@@ -41,7 +42,7 @@ class _SettingsPageState extends State<SettingsPage>
                 child: Row(
                   children: [
                     const CustomCircleAvatar(
-                        dimention: 75,
+                        dimension: 75,
                         avatarUrl:
                             'https://cdn.dribbble.com/users/1003944/screenshots/10412487/dribbble_angry_4x.gif?compress=1&resize=400x300'),
                     const SizedBox(
@@ -71,10 +72,13 @@ class _SettingsPageState extends State<SettingsPage>
                 child: SettingItem(
                     text: 'View Feedbacks', iconData: Icons.person_outlined),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child:
-                    SettingItem(text: 'Booking History', iconData: Icons.list),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: GestureDetector(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BookingHistoryPage())),
+                    child: const SettingItem(
+                        text: 'Booking History', iconData: Icons.list)),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
@@ -83,6 +87,14 @@ class _SettingsPageState extends State<SettingsPage>
                       builder: (context) => const SessionHistoryPage())),
                   child: const SettingItem(
                       text: 'Session History', iconData: Icons.history),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: GestureDetector(
+                  onTap: () => {},
+                  child: const SettingItem(
+                      text: 'Courses', iconData: Icons.school),
                 ),
               ),
               const Padding(

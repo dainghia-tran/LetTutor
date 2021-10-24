@@ -108,7 +108,7 @@ class _CallControlState extends State<CallControl> {
             width: 4,
           ),
           GestureDetector(
-            onTap: () => setState(() {}),
+            onTap: () => Navigator.of(context).pop(),
             child: Container(
               padding: const EdgeInsets.all(4),
               width: 40,
