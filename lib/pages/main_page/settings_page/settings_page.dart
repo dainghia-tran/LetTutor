@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/pages/booking_history_page/booking_history_page.dart';
+import 'package:lettutor/pages/ebooks_page/ebooks_page.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
 import 'package:lettutor/pages/profile_page/profile_page.dart';
@@ -95,6 +96,14 @@ class _SettingsPageState extends State<SettingsPage>
                   onTap: () => {},
                   child: const SettingItem(
                       text: 'Courses', iconData: Icons.school),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EBooksPage())),
+                  child: const SettingItem(
+                      text: 'E-books', iconData: Icons.menu_book),
                 ),
               ),
               const Padding(
