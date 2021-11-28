@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor/pages/login_page/validator.dart' as validator;
 import 'package:lettutor/pages/main_page/main_page.dart';
+import 'package:lettutor/pages/reset_password_page/reset_password_page.dart';
+import 'package:lettutor/pages/sign_up_page/sign_up_page.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +42,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    Image.asset('assets/login/appbar.png', height: 300,),
+                    Image.asset(
+                      'assets/login/appbar.png',
+                      height: 300,
+                    ),
                     const Text('Say hello to your English tutors',
                         style: TextStyle(
                             color: Colors.blue,
@@ -55,71 +63,104 @@ class _LoginPageState extends State<LoginPage> {
                 delegate: SliverChildListDelegate([
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      maxLines: 1,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      maxLines: 1,
-                      obscureText: true,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    RichText(
-                      text: const TextSpan(
-                          text: 'Not a member yet? ',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
-                          children: [
-                            TextSpan(
-                                text: 'Sign up',
-                                style: TextStyle(color: Colors.blue))
-                          ]),
-                    ),
-                    const SizedBox(height: 16),
-                    PrimaryButton(
-                      isDisabled: false,
-                      onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const MainPage())),
-                      text: 'Log in',
-                    ),
-                    const SizedBox(height: 16),
-                    const Text('Or continue with'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Boxicons.bxl_facebook_circle),
-                          onPressed: () {},
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) => validator.emailValidator(value),
+                        maxLines: 1,
+                        textInputAction: TextInputAction.next,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Email',
                         ),
-                        IconButton(
-                          icon: const Icon(Boxicons.bxl_google),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                    RichText(
-                      text: const TextSpan(
-                          text: 'Forgot password? ',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
-                          children: [
-                            TextSpan(
-                                text: 'Recover password',
-                                style: TextStyle(color: Colors.blue))
-                          ]),
-                    ),
-                  ],
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        validator: (value) =>
+                            validator.passwordValidator(value),
+                        maxLines: 1,
+                        obscureText: true,
+                        textInputAction: TextInputAction.next,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Password',
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Not a member yet? ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          GestureDetector(
+                            child: const Text('Sign up',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold)),
+                            onTap: () => Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => const SignUpPage(),
+                            )),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      PrimaryButton(
+                        isDisabled: false,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const MainPage()));
+                          }
+                        },
+                        text: 'Log in',
+                      ),
+                      const SizedBox(height: 16),
+                      const Text('Or continue with'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Boxicons.bxl_facebook_circle),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(Boxicons.bxl_google),
+                            onPressed: () {},
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Forgot password? ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ResetPasswordPage())),
+                              child: const Text(
+                                'Recover password',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ))
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ]))
