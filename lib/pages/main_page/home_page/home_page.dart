@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lettutor/models/tutor/tutor.dart';
+import 'package:lettutor/pages/main_page/home_page/home_bloc.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
 import 'package:lettutor/widgets/tutor_card.dart';
-
-const description1 =
-    "Being a teacher is what I live for. Making a difference in a student's life, and seeing them progress and achieve their language goal, is the biggest pleasure in my life.";
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +15,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  final homeBloc = HomeBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    homeBloc.getTutors();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -70,54 +77,45 @@ class _HomePageState extends State<HomePage>
                       )
                     ],
                   )),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: TutorCard(
-                  onClickBook: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const TutorProfilePage())),
-                  onClickMessage: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const PrivateMessagePage(name: 'Tran Nghia',))),
-                  isFavorite: true,
-                  name: 'Tran Nghia',
-                  stars: 4.5,
-                  tags: const ['English', 'Maths', 'Physics'],
-                  description: description1,
+              Center(
+                child: StreamBuilder<List<Tutor>>(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: snapshot.data!
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: TutorCard(
+                                  tutor: e,
+                                  onClickBook: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TutorProfilePage())),
+                                  onClickMessage: () => Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              PrivateMessagePage(
+                                                name: e.name,
+                                              ))),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                  stream: homeBloc.tutorsStream,
                 ),
               ),
-               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: TutorCard(
-                  onClickBook: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const TutorProfilePage())),
-                  onClickMessage: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const PrivateMessagePage(name: 'David Beckham',))),
-                  isFavorite: false,
-                  name: 'David Beckham',
-                  stars: 4,
-                  tags: const ['English', 'Football'],
-                  description: description1,
-                ),
-              ),
-               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: TutorCard(
-                  onClickBook: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const TutorProfilePage())),
-                  onClickMessage: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const PrivateMessagePage(name: 'Issac Newton',))),
-                  isFavorite: true,
-                  name: 'Issac Newton',
-                  stars: 2.5,
-                  tags: const ['Maths', 'Physics', 'English'],
-                  description: description1,
-                ),
-              )
             ],
           ),
         ),

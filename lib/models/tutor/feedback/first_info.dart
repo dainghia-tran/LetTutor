@@ -1,7 +1,5 @@
-import 'package:lettutor/models/schedules.dart';
-
-class Tutor {
-  dynamic level;
+class FirstInfo {
+  String? level;
   String? email;
   String? google;
   String? facebook;
@@ -15,32 +13,38 @@ class Tutor {
   bool? requestPassword;
   bool? isActivated;
   bool? isPhoneActivated;
-  dynamic requireNote;
-  int? timezone;
+  String? requireNote;
+  dynamic timezone;
   dynamic phoneAuth;
   bool? isPhoneAuthActivated;
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
-  List<dynamic>? feedbacks;
-  List<Schedules>? schedules;
-  String? id;
-  String? userId;
-  String? video;
-  String? bio;
-  String? education;
-  String? experience;
-  String? profession;
-  dynamic accent;
-  String? targetStudent;
-  String? interests;
-  String? languages;
-  String? specialties;
-  dynamic resume;
-  bool? isNative;
-  int? price;
 
-  Tutor.fromJson(Map<String, dynamic> json) {
+  FirstInfo(
+      {this.level,
+      this.email,
+      this.google,
+      this.facebook,
+      this.apple,
+      this.avatar,
+      this.name,
+      this.country,
+      this.phone,
+      this.language,
+      this.birthday,
+      this.requestPassword,
+      this.isActivated,
+      this.isPhoneActivated,
+      this.requireNote,
+      this.timezone,
+      this.phoneAuth,
+      this.isPhoneAuthActivated,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
+
+  FirstInfo.fromJson(Map<String, dynamic> json) {
     level = json['level'];
     email = json['email'];
     google = json['google'];
@@ -62,33 +66,6 @@ class Tutor {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     deletedAt = json['deletedAt'];
-    if (json['feedbacks'] != null) {
-      feedbacks = [];
-      json['feedbacks'].forEach((v) {
-        feedbacks?.add(v);
-      });
-    }
-    if (json['schedules'] != null) {
-      schedules = [];
-      json['schedules'].forEach((v) {
-        schedules?.add(Schedules.fromJson(v));
-      });
-    }
-    id = json['id'];
-    userId = json['userId'];
-    video = json['video'];
-    bio = json['bio'];
-    education = json['education'];
-    experience = json['experience'];
-    profession = json['profession'];
-    accent = json['accent'];
-    targetStudent = json['targetStudent'];
-    interests = json['interests'];
-    languages = json['languages'];
-    specialties = json['specialties'];
-    resume = json['resume'];
-    isNative = json['isNative'];
-    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,27 +91,6 @@ class Tutor {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['deletedAt'] = deletedAt;
-    if (feedbacks != null) {
-      data['feedbacks'] = feedbacks;
-    }
-    if (schedules != null) {
-      data['schedules'] = schedules;
-    }
-    data['id'] = id;
-    data['userId'] = userId;
-    data['video'] = video;
-    data['bio'] = bio;
-    data['education'] = education;
-    data['experience'] = experience;
-    data['profession'] = profession;
-    data['accent'] = accent;
-    data['targetStudent'] = targetStudent;
-    data['interests'] = interests;
-    data['languages'] = languages;
-    data['specialties'] = specialties;
-    data['resume'] = resume;
-    data['isNative'] = isNative;
-    data['price'] = price;
     return data;
   }
 }

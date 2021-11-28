@@ -1,25 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
-import 'package:lettutor/widgets/custom_circle_avatar.dart';
+import 'package:lettutor/models/tutor/tutor.dart';
+import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 import 'package:lettutor/widgets/button/secondary_button_rounded.dart';
+import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 
 class TutorCard extends StatefulWidget {
   const TutorCard(
       {Key? key,
-      required this.isFavorite,
-      required this.name,
-      required this.stars,
-      this.tags,
-      this.description, required this.onClickBook, required this.onClickMessage})
+      required this.tutor,
+      required this.onClickBook,
+      required this.onClickMessage})
       : super(key: key);
-  final bool isFavorite;
-  final String name;
-  final double stars;
-  final List<String>? tags;
-  final String? description;
+
+  final Tutor tutor;
   final onClickBook;
   final onClickMessage;
 
@@ -34,11 +31,13 @@ class _TutorCardState extends State<TutorCard> {
   @override
   void initState() {
     super.initState();
-    _isFavorite = widget.isFavorite;
-    widget.tags?.forEach((tag) => _tags.add(Padding(
-          padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
-          child: Tag(text: tag, isActive: true),
-        )));
+    _isFavorite = false;
+    tutor_utils
+        .getTagsFromSpecialities(widget.tutor.specialties)
+        .forEach((tag) => _tags.add(Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+              child: Tag(text: tag, isActive: true),
+            )));
   }
 
   @override
@@ -54,7 +53,7 @@ class _TutorCardState extends State<TutorCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CustomCircleAvatar(avatarUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2019/12/62144452_2261755747276811_7262549243119500388_n-5df0419c10749__700.jpg'),
+                CustomCircleAvatar(avatarUrl: widget.tutor.avatar ?? ''),
                 Icon(_isFavorite ? Boxicons.bxs_heart : Boxicons.bx_heart,
                     color: _isFavorite ? Colors.red : Colors.blue),
               ],
@@ -63,22 +62,37 @@ class _TutorCardState extends State<TutorCard> {
               height: 8,
             ),
             Text(
-              widget.name,
+              widget.tutor.name ?? '',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
-            StarRatingBar(stars: widget.stars),
+            StarRatingBar(
+                stars: tutor_utils
+                    .getRatingFromFeedbacks(widget.tutor.feedbacks ?? [])),
             Wrap(children: _tags),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             Text(
-              widget.description ?? '',maxLines: 3,
+              widget.tutor.bio ?? '',
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SecondaryButtonRounded(isDisabled: false, onPressed: widget.onClickBook, text: 'Book', icon: Boxicons.bx_calendar_check,),
-                SecondaryButtonRounded(isDisabled: false, onPressed: widget.onClickMessage, text: 'Message', icon: Boxicons.bx_message_dots,),
+                SecondaryButtonRounded(
+                  isDisabled: false,
+                  onPressed: widget.onClickBook,
+                  text: 'Book',
+                  icon: Boxicons.bx_calendar_check,
+                ),
+                SecondaryButtonRounded(
+                  isDisabled: false,
+                  onPressed: widget.onClickMessage,
+                  text: 'Message',
+                  icon: Boxicons.bx_message_dots,
+                ),
               ],
             )
           ],
