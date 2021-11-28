@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/reviews_dialog.dart';
+import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
+import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/expandable_text.dart';
-import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 import 'package:lettutor/widgets/time_table.dart';
 
 class TutorProfilePage extends StatefulWidget {
-  const TutorProfilePage({Key? key}) : super(key: key);
+  const TutorProfilePage({Key? key, required this.tutor}) : super(key: key);
+
+  final Tutor tutor;
 
   @override
   _TutorProfilePageState createState() => _TutorProfilePageState();
@@ -54,10 +58,8 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                 children: [
                   Row(
                     children: [
-                      const CustomCircleAvatar(
-                          dimension: 100,
-                          avatarUrl:
-                              'https://img.freepik.com/free-vector/cute-koala-with-cub-cartoon-icon-illustration_138676-2839.jpg?size=338&ext=jpg'),
+                      CustomCircleAvatar(
+                          dimension: 100, avatarUrl: widget.tutor.avatar ?? ''),
                       const SizedBox(
                         width: 8,
                       ),
@@ -65,14 +67,16 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                         height: 80,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
-                              'Tran Nghia',
-                              style: TextStyle(
+                              widget.tutor.name ?? '',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
-                            StarRatingBar(stars: 4.5),
-                            Text('🇻🇳 Vietnamese')
+                            StarRatingBar(
+                                stars: tutor_utils.getRatingFromFeedbacks(
+                                    widget.tutor.feedbacks ?? [])),
+                            Text(widget.tutor.language ?? '')
                           ],
                         ),
                       )
@@ -81,7 +85,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   const SizedBox(
                     height: 8,
                   ),
-                  const ExpandableText(content: desciption),
+                  ExpandableText(content: widget.tutor.bio ?? ''),
                   const SizedBox(
                     height: 8,
                   ),
@@ -92,7 +96,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                const PrivateMessagePage(name: 'Tran Nghia'),
+                                PrivateMessagePage(tutor: widget.tutor),
                           ));
                         },
                         child: Column(
@@ -134,8 +138,8 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) => const ReportDialog(
-                              name: 'Tran Nghia',
+                            builder: (context) => ReportDialog(
+                              name: widget.tutor.name ?? '',
                             ),
                           );
                         },
@@ -156,7 +160,8 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) => const ReviewsDialog(),
+                            builder: (context) => ReviewsDialog(
+                                feedbacks: widget.tutor.feedbacks ?? []),
                           );
                         },
                         child: Column(
@@ -184,29 +189,60 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     child: Wrap(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
+                      children:
+                          widget.tutor.languages!.split(',').map((element) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
                           child: Tag(
-                            text: 'Vietnamese',
+                            text: element,
                             isActive: true,
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'English',
-                            isActive: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'Russian',
-                            isActive: true,
-                          ),
-                        ),
-                      ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const Text(
+                    'Experience',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      widget.tutor.experience ?? '',
+                      style: const TextStyle(color: Colors.black45),
+                    ),
+                  ),
+                  const Text(
+                    'Education',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      widget.tutor.education ?? '',
+                      style: const TextStyle(color: Colors.black45),
+                    ),
+                  ),
+                  const Text(
+                    'Interests',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      widget.tutor.interests ?? '',
+                      style: const TextStyle(color: Colors.black45),
+                    ),
+                  ),
+                  const Text(
+                    'Profession',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      widget.tutor.profession ?? '',
+                      style: const TextStyle(color: Colors.black45),
                     ),
                   ),
                   const Text(
@@ -216,37 +252,18 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     child: Wrap(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'English for business',
-                            isActive: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'Conversational',
-                            isActive: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'English for kids',
-                            isActive: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 8),
-                          child: Tag(
-                            text: 'Starters',
-                            isActive: true,
-                          ),
-                        ),
-                      ],
-                    ),
+                        children: tutor_utils
+                            .getTagsFromSpecialities(widget.tutor.specialties)
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                                child: Tag(
+                                  text: e,
+                                  isActive: true,
+                                ),
+                              ),
+                            )
+                            .toList()),
                   ),
                   const Text(
                     'Suggested courses',
@@ -259,7 +276,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                           text: 'Business English: ',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                           children: [
                             TextSpan(
@@ -269,28 +286,6 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal))
                           ]),
-                    ),
-                  ),
-                  const Text(
-                    'Interests',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      'Cooking, Mingling with kids, Watch my small retail store, Travelling',
-                      style: TextStyle(color: Colors.black45),
-                    ),
-                  ),
-                  const Text(
-                    'Teaching experience',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      'I have been teaching English online since 2020 catering to Japanese and Chinese students.',
-                      style: TextStyle(color: Colors.black45),
                     ),
                   ),
                   Row(
@@ -328,6 +323,3 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
     );
   }
 }
-
-const desciption =
-    "Hi, My name is Nghia I am an experienced English Teacher from Vietnam. I would like share my enthusiasm with the learners in this platform. I've been working with diverse learners of all levels for many years. I am greatly passionate about about profession. I love teaching because I can help others improve their skills and it gives me joy and excitement meeting different learners around the world. In my class I worked with wonderful enthusiasm and positivity, and I'm happy t focus on my learner's goal.";

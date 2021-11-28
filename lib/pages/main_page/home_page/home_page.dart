@@ -95,12 +95,12 @@ class _HomePageState extends State<HomePage>
                                   onClickBook: () => Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const TutorProfilePage())),
+                                              TutorProfilePage(tutor: e))),
                                   onClickMessage: () => Navigator.of(context)
                                       .push(MaterialPageRoute(
                                           builder: (context) =>
                                               PrivateMessagePage(
-                                                name: e.name,
+                                                tutor: e,
                                               ))),
                                 ),
                               ),

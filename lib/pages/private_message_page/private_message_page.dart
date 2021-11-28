@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 
 class PrivateMessagePage extends StatefulWidget {
-  const PrivateMessagePage({Key? key, required this.name}) : super(key: key);
-  final name;
+  const PrivateMessagePage({Key? key, required this.tutor}) : super(key: key);
+  final Tutor tutor;
 
   @override
   _PrivateMessagePageState createState() => _PrivateMessagePageState();
@@ -26,16 +27,15 @@ class _PrivateMessagePageState extends State<PrivateMessagePage> {
         ),
         title: Row(
           children: [
-            const CustomCircleAvatar(
-              avatarUrl:
-                  'https://img.freepik.com/free-vector/cute-koala-with-cub-cartoon-icon-illustration_138676-2839.jpg?size=338&ext=jpg',
+            CustomCircleAvatar(
+              avatarUrl: widget.tutor.avatar ?? '',
               dimension: 32,
             ),
             const SizedBox(
               width: 8,
             ),
             Text(
-              widget.name,
+              widget.tutor.name ?? '',
               style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
