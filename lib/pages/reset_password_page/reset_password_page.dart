@@ -14,14 +14,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          leading: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-            child: SvgPicture.asset('assets/lettutor_logo.svg',
-                semanticsLabel: 'LetTutor logo'),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          leadingWidth: 200),
+        ),
+        title: Container(
+          width: 180,
+          padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+          child: SvgPicture.asset('assets/lettutor_logo.svg',
+              semanticsLabel: 'LetTutor logo'),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -48,13 +56,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
               ),
             ),
-            Padding(padding: const EdgeInsets.only(top: 16),
-            child: PrimaryButton(
-              isDisabled: false,
-              onPressed: () => {},
-              text: 'Send reset link',
-              width: 150,
-            ),)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: PrimaryButton(
+                isDisabled: false,
+                onPressed: () => {},
+                text: 'Send reset link',
+                width: 150,
+              ),
+            )
           ],
         ),
       ),
