@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:lettutor/models/tutor/tutor.dart';
 
-Future<List> fetchAllTutors() async {
+Future<List<Tutor>> fetchAllTutors() async {
   String tutorsFromFile =
       await rootBundle.loadString('assets/offline_data/tutors.json');
 
