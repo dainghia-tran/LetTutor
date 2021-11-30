@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/pages/main_page/home_page/home_bloc.dart';
+import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
 import 'package:lettutor/widgets/tutor_card.dart';
@@ -69,7 +70,8 @@ class _HomePageState extends State<HomePage>
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => MainPageBloc.of(context, listen: false)
+                            .changePage(3),
                         child: const Text(
                           'See all ᐳ',
                           style: TextStyle(color: Colors.blue),

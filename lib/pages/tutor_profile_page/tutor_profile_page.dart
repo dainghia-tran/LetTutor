@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/models/tutor/tutor.dart';
+import 'package:lettutor/pages/courses_page/courses_page.dart';
+import 'package:lettutor/pages/courses_page/widgets/course.dart';
+import 'package:lettutor/pages/explore_course_page/explore_course_page.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
@@ -271,22 +276,15 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: RichText(
-                      text: const TextSpan(
-                          text: 'Business English: ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                          children: [
-                            TextSpan(
-                                text: 'Link',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal))
-                          ]),
-                    ),
+                    child: Course(
+                        onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ExploreCoursePage())),
+                        courseName: 'Bussiness Englist',
+                        description: 'Description',
+                        price: 100,
+                        level: level[Random().nextInt(2).toInt()]),
                   ),
                   Row(
                     children: [
@@ -298,7 +296,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                       ),
                       const Icon(Icons.arrow_forward_ios_sharp),
                       const Text(
-                        'Oct, 2021',
+                        'Dec, 2021',
                         style: TextStyle(fontSize: 16),
                       )
                     ],

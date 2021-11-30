@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:lettutor/pages/advanced_settings_page/advanced_settings_page.dart';
 import 'package:lettutor/pages/booking_history_page/booking_history_page.dart';
 import 'package:lettutor/pages/courses_page/courses_page.dart';
 import 'package:lettutor/pages/ebooks_page/ebooks_page.dart';
@@ -94,7 +95,8 @@ class _SettingsPageState extends State<SettingsPage>
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CoursesPage())),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CoursesPage())),
                   child: const SettingItem(
                       text: 'Courses', iconData: Icons.school),
                 ),
@@ -102,16 +104,21 @@ class _SettingsPageState extends State<SettingsPage>
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EBooksPage())),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const EBooksPage())),
                   child: const SettingItem(
                       text: 'E-books', iconData: Icons.menu_book),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: SettingItem(
-                    text: 'Advanced Settings',
-                    iconData: Icons.settings_outlined),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const AdvancedSettingsPage())),
+                  child: const SettingItem(
+                      text: 'Advanced Settings',
+                      iconData: Icons.settings_outlined),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
