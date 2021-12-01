@@ -18,6 +18,8 @@ import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 import 'package:lettutor/widgets/time_table.dart';
 
+import '../../app_provider.dart';
+
 class TutorProfilePage extends StatefulWidget {
   const TutorProfilePage({Key? key, required this.tutor}) : super(key: key);
 
@@ -28,10 +30,13 @@ class TutorProfilePage extends StatefulWidget {
 }
 
 class _TutorProfilePageState extends State<TutorProfilePage> {
-  var isFavorite = false;
+  var _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
+    _isFavorite =
+        AppProvider.of(context).favoriteTutors.contains(widget.tutor.id!);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -119,22 +124,27 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            isFavorite = !isFavorite;
-                          });
+                          if (_isFavorite) {
+                            AppProvider.of(context, listen: false)
+                                .removeFavoriteTutors(widget.tutor.id!);
+                          } else {
+                            AppProvider.of(context, listen: false)
+                                .addFavoriteTutors(widget.tutor.id!);
+                          }
                         },
                         child: Column(
                           children: [
                             Icon(
-                              isFavorite
+                              _isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color: isFavorite ? Colors.red : Colors.blue,
+                              color: _isFavorite ? Colors.red : Colors.blue,
                             ),
                             Text(
                               'Favorite',
                               style: TextStyle(
-                                  color: isFavorite ? Colors.red : Colors.blue),
+                                  color:
+                                      _isFavorite ? Colors.red : Colors.blue),
                             )
                           ],
                         ),
@@ -281,7 +291,7 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     const ExploreCoursePage())),
-                        courseName: 'Bussiness Englist',
+                        courseName: 'Bussiness English',
                         description: 'Description',
                         price: 100,
                         level: level[Random().nextInt(2).toInt()]),

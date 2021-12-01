@@ -146,7 +146,7 @@ class _TutorsPageState extends State<TutorsPage>
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: TutorCard(
                                   tutor: e,
-                                  onClickBook: () => Navigator.of(context).push(
+                                  onClickCard: () => Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               TutorProfilePage(tutor: e))),
