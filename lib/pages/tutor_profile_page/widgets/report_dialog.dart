@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/button/secondary_button.dart';
 
 class ReportDialog extends StatefulWidget {
@@ -10,6 +11,11 @@ class ReportDialog extends StatefulWidget {
 }
 
 class _ReportDialogState extends State<ReportDialog> {
+  var cbAnnoying = false;
+  var cbFake = false;
+  var cvInappropriate = false;
+  final textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -46,38 +52,61 @@ class _ReportDialogState extends State<ReportDialog> {
                       Icons.report,
                       color: Colors.blue,
                     ),
-                    SizedBox(width: 8,),
+                    SizedBox(
+                      width: 8,
+                    ),
                     Expanded(
                       child: Text(
                         "Help us understand what's happening",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    Checkbox(value: false, onChanged: (value){}),
-                    const SizedBox(width: 4,),
+                    Checkbox(
+                        value: cbAnnoying,
+                        onChanged: (_) => setState(() {
+                              cbAnnoying = !cbAnnoying;
+                            })),
+                    const SizedBox(
+                      width: 4,
+                    ),
                     const Text('This tutor annoying me')
                   ],
                 ),
                 Row(
                   children: [
-                    Checkbox(value: false, onChanged: (value){}),
-                    const SizedBox(width: 4,),
-                    const Expanded(child: Text('This profile is pretending to be someone or is fake'))
+                    Checkbox(
+                        value: cbFake,
+                        onChanged: (_) => setState(() {
+                              cbFake = !cbFake;
+                            })),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    const Expanded(
+                        child: Text(
+                            'This profile is pretending to be someone or is fake'))
                   ],
                 ),
                 Row(
                   children: [
-                    Checkbox(value: false, onChanged: (value){}),
-                    const SizedBox(width: 4,),
-                    const Text('This tutor annoying me')
+                    Checkbox(
+                        value: cvInappropriate,
+                        onChanged: (_) => setState(() {
+                              cvInappropriate = !cvInappropriate;
+                            })),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    const Text('Inappropriate profile photo')
                   ],
                 ),
                 TextFormField(
+                  controller: textController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Let us know details about your problem',
@@ -88,10 +117,21 @@ class _ReportDialogState extends State<ReportDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SecondaryButton(isDisabled: false, onPressed: (){
-                      Navigator.of(context).pop();
-                    }, text: 'Cancel'),
-                    SecondaryButton(isDisabled: true, onPressed: (){}, text: 'Submit')
+                    SecondaryButton(
+                        isDisabled: false,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        text: 'Cancel'),
+                    PrimaryButton(
+                        isDisabled: false,
+                        onPressed: () {
+                          const snackBar =
+                              SnackBar(content: Text('Report sent!'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Navigator.of(context).pop();
+                        },
+                        text: 'Submit')
                   ],
                 )
               ],
