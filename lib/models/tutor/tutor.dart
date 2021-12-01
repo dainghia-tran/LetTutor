@@ -178,4 +178,10 @@ class Tutor {
     data['price'] = price;
     return data;
   }
+
+  @override
+  String toString() {
+    return '$name$email$level$targetStudent$languages$specialties'
+        .toLowerCase();
+  }
 }

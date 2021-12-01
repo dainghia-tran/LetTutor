@@ -26,9 +26,8 @@ class _TagState extends State<Tag> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(widget.onClick != null) {
+        if (widget.onClick != null) {
           widget.onClick!();
-          setState(() => {isActiveState = !isActiveState});
         }
       },
       child: Container(

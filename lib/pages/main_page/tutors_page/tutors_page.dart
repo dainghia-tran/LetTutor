@@ -9,8 +9,17 @@ import 'package:lettutor/widgets/search_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 import 'package:lettutor/widgets/tutor_card.dart';
 
-const description1 =
-    "Being a teacher is what I live for. Making a difference in a student's life, and seeing them progress and achieve their language goal, is the biggest pleasure in my life.";
+const tags = [
+  'All',
+  'English for kids',
+  'English for bussiness',
+  'Conversational',
+  'TOEIC',
+  'TOEFL',
+  'IELTS',
+  'Mover',
+  'Starter'
+];
 
 class TutorsPage extends StatefulWidget {
   const TutorsPage({Key? key}) : super(key: key);
@@ -23,6 +32,7 @@ class _TutorsPageState extends State<TutorsPage>
     with AutomaticKeepAliveClientMixin {
   var countryCode = 'vn';
   final tutorsBloc = TutorsBloc();
+  var tagIndex = 0;
 
   @override
   void initState() {
@@ -46,7 +56,9 @@ class _TutorsPageState extends State<TutorsPage>
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SearchBar(),
+            SearchBar(
+              onSearch: tutorsBloc.searchTutors,
+            ),
             Row(
               children: [
                 IconButton(
@@ -68,63 +80,7 @@ class _TutorsPageState extends State<TutorsPage>
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                            text: 'All',
-                            isActive: false,
-                            onClick: () {},
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                            text: 'English for kids',
-                            isActive: false,
-                            onClick: () {},
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'English for bussiness',
-                              isActive: false,
-                              onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'Conversational',
-                              isActive: false,
-                              onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'Starter', isActive: false, onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'Mover', isActive: false, onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'IELTS', isActive: true, onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'TOEFL', isActive: false, onClick: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                          child: Tag(
-                              text: 'TOEIC', isActive: false, onClick: () {}),
-                        ),
-                      ],
+                      children: _buildTagsList(),
                     ),
                   ),
                 ),
@@ -137,7 +93,6 @@ class _TutorsPageState extends State<TutorsPage>
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     }
-
                     if (snapshot.hasData) {
                       return Column(
                         children: snapshot.data!
@@ -175,6 +130,25 @@ class _TutorsPageState extends State<TutorsPage>
         ),
       ),
     );
+  }
+
+  _buildTagsList() {
+    final List<Widget> children = [];
+    for (var i = 0; i < tags.length; i++) {
+      children.add(Padding(
+        padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+        child: Tag(
+            text: tags[i],
+            isActive: tagIndex == i,
+            onClick: () {
+              setState(() {
+                tagIndex = i;
+              });
+              tutorsBloc.filterTutorsByTag(tags[i]);
+            }),
+      ));
+    }
+    return children;
   }
 
   @override

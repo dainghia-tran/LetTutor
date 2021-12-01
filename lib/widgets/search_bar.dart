@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key, this.onClick}) : super(key: key);
-  final onClick;
+  const SearchBar({Key? key, this.onSearch}) : super(key: key);
+  final onSearch;
 
   @override
   _SearchBarState createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +27,7 @@ class _SearchBarState extends State<SearchBar> {
               ),
               TextFormField(
                 maxLines: 1,
-                onFieldSubmitted: (String keyword) => widget.onClick(keyword),
+                onFieldSubmitted: (String keyword) => widget.onSearch(keyword),
                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.only(left: 32, right: 8),

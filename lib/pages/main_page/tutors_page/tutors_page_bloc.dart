@@ -5,11 +5,10 @@ import 'package:lettutor/repositories/tutor_repo.dart' as tutor_repo;
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 
 class TutorsBloc {
+  List<Tutor> tutors = [];
   final _tutorsController = StreamController<List<Tutor>>();
-  final _tutorFilterController = StreamController<String>();
 
   Stream<List<Tutor>> get tutorsStream => _tutorsController.stream;
-  Stream<String> get filterStream => _tutorFilterController.stream;
 
   void initialize() {
     getTutors();
@@ -17,15 +16,37 @@ class TutorsBloc {
 
   void getTutors() async {
     try {
-      final tutors = await tutor_repo.fetchAllTutors();
+      tutors = await tutor_repo.fetchAllTutors();
       _tutorsController.add(tutors..sort(tutor_utils.compareRating));
     } catch (e) {
       _tutorsController.addError(e);
     }
   }
 
+  void searchTutors(String keyword) {
+    _tutorsController.add(tutors
+        .where((element) => element.toString().contains(keyword))
+        .toList());
+  }
+
+  void filterTutorsByTag(String tag) {
+    if (tag == 'All') {
+      _tutorsController.add(tutors);
+    } else {
+      _tutorsController.add(tutors
+          .where((element) => element.specialties!
+              .replaceAll('-', ' ')
+              .toLowerCase()
+              .contains(tag.toLowerCase()))
+          .toList());
+    }
+  }
+
+  void filterTutorsByCountry(String countryName) {
+    print(countryName);
+  }
+
   void dispose() {
     _tutorsController.close();
-    _tutorFilterController.close();
   }
 }
