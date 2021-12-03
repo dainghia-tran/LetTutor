@@ -68,7 +68,9 @@ class _TutorsPageState extends State<TutorsPage>
                         onSelect: (Country country) {
                           setState(() {
                             countryCode = country.countryCode.toLowerCase();
+                            tagIndex = -1;
                           });
+                          tutorsBloc.filterTutorsByCountry(country.countryCode);
                         },
                       );
                     },

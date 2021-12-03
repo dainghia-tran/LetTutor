@@ -42,8 +42,10 @@ class TutorsBloc {
     }
   }
 
-  void filterTutorsByCountry(String countryName) {
-    print(countryName);
+  void filterTutorsByCountry(String countryCode) {
+    _tutorsController.add(tutors
+        .where((element) => element.country?.contains(countryCode) ?? false)
+        .toList());
   }
 
   void dispose() {
