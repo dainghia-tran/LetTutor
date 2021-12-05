@@ -4,6 +4,7 @@ import 'package:lettutor/pages/advanced_settings_page/advanced_settings_page.dar
 import 'package:lettutor/pages/booking_history_page/booking_history_page.dart';
 import 'package:lettutor/pages/courses_page/courses_page.dart';
 import 'package:lettutor/pages/ebooks_page/ebooks_page.dart';
+import 'package:lettutor/pages/login_page/login_page.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
 import 'package:lettutor/pages/profile_page/profile_page.dart';
@@ -148,7 +149,11 @@ class _SettingsPageState extends State<SettingsPage>
                 height: 16,
               ),
               PrimaryButtonRounded(
-                  isDisabled: false, onPressed: () {}, text: 'Log out')
+                  isDisabled: false,
+                  onPressed: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage())),
+                  text: 'Log out')
             ],
           ),
         ),
