@@ -13,7 +13,6 @@ import 'package:lettutor/pages/main_page/main_page.dart';
 import 'package:lettutor/pages/reset_password_page/reset_password_page.dart';
 import 'package:lettutor/pages/sign_up_page/sign_up_page.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -130,7 +129,6 @@ class _LoginPageState extends State<LoginPage> {
                               isDisabled: false,
                               onPressed: () async {
                                 Auth? result = await login(
-                                    context,
                                     _emailController.text,
                                     _passwordController.text);
                                 if (result != null) {
@@ -197,8 +195,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<Auth?> login(
-      BuildContext context, String email, String password) async {
+  Future<Auth?> login(String email, String password) async {
     try {
       var body = {
         'email': email,
