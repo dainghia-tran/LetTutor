@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/pages/main_page/home_page/home_bloc.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
@@ -80,7 +79,7 @@ class _HomePageState extends State<HomePage>
                     ],
                   )),
               Center(
-                child: StreamBuilder<List<Tutor>>(
+                child: StreamBuilder<List>(
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');

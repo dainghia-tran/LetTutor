@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor/models/tutor/feedback.dart' as tutor_feedback;
 import 'package:lettutor/utils/time_utils.dart' as time_utils;
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
 
 class UserReview extends StatelessWidget {
   const UserReview({Key? key, required this.feedback}) : super(key: key);
-  final tutor_feedback.Feedback feedback;
+  final feedback;
 
   @override
   Widget build(BuildContext context) {

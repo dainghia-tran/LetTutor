@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 
 class PrivateMessagePage extends StatefulWidget {
   const PrivateMessagePage({Key? key, required this.tutor}) : super(key: key);
-  final Tutor tutor;
+  final tutor;
 
   @override
   _PrivateMessagePageState createState() => _PrivateMessagePageState();

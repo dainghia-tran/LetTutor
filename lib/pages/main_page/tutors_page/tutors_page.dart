@@ -1,7 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/pages/main_page/tutors_page/tutors_page_bloc.dart';
 import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
@@ -90,7 +89,7 @@ class _TutorsPageState extends State<TutorsPage>
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: StreamBuilder<List<Tutor>>(
+                child: StreamBuilder<List>(
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');

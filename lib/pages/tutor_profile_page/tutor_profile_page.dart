@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/pages/courses_page/courses_page.dart';
 import 'package:lettutor/pages/courses_page/widgets/course.dart';
 import 'package:lettutor/pages/explore_course_page/explore_course_page.dart';
@@ -23,7 +22,7 @@ import '../../app_provider.dart';
 class TutorProfilePage extends StatefulWidget {
   const TutorProfilePage({Key? key, required this.tutor}) : super(key: key);
 
-  final Tutor tutor;
+  final tutor;
 
   @override
   _TutorProfilePageState createState() => _TutorProfilePageState();
@@ -83,9 +82,9 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
-                            StarRatingBar(
-                                stars: tutor_utils.getRatingFromFeedbacks(
-                                    widget.tutor.feedbacks ?? [])),
+                            // StarRatingBar(
+                            //     stars: tutor_utils.getRatingFromFeedbacks(
+                            //         widget.tutor.feedbacks ?? [])),
                             Text(widget.tutor.language ?? '')
                           ],
                         ),
@@ -264,22 +263,22 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                     'Specialities',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                    child: Wrap(
-                        children: tutor_utils
-                            .getTagsFromSpecialities(widget.tutor.specialties)
-                            .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
-                                child: Tag(
-                                  text: e,
-                                  isActive: true,
-                                ),
-                              ),
-                            )
-                            .toList()),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  //   child: Wrap(
+                  //       children: tutor_utils
+                  //           .getTagsFromSpecialities(widget.tutor.specialties)
+                  //           .map(
+                  //             (e) => Padding(
+                  //               padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                  //               child: Tag(
+                  //                 text: e,
+                  //                 isActive: true,
+                  //               ),
+                  //             ),
+                  //           )
+                  //           .toList()),
+                  // ),
                   const Text(
                     'Suggested courses',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),

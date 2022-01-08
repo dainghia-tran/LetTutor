@@ -1,7 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lettutor/constants/http.dart';
+import 'package:lettutor/models/auth.dart';
+import 'package:lettutor/models/user.dart';
 import 'package:lettutor/pages/login_page/validator.dart' as validator;
 import 'package:lettutor/pages/main_page/main_page.dart';
 import 'package:lettutor/pages/reset_password_page/reset_password_page.dart';
@@ -168,5 +172,30 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<Auth?> login(String email, String password) async {
+    try {
+      var body = {
+        'email': email,
+        'password': password,
+      };
+      var dio = Http().client;
+      var res = await dio.post(
+        'auth/login',
+        data: body,
+      );
+      var auth = Auth.fromJson(res.data);
+      inspect(auth);
+      var accessToken = auth.tokens!.access!.token;
+      dio.options.headers["Authorization"] = "Bearer $accessToken";
+      var resInfo = await dio.get("user/info");
+      auth.user = User.fromJson(resInfo.data["user"]);
+      inspect(auth);
+      return auth;
+    } catch (e) {
+      inspect(e);
+      return null;
+    }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/app_provider.dart';
-import 'package:lettutor/models/tutor/tutor.dart';
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
@@ -16,7 +15,7 @@ class TutorCard extends StatefulWidget {
       required this.onClickMessage})
       : super(key: key);
 
-  final Tutor tutor;
+  final tutor;
   final onClickCard;
   final onClickMessage;
 
@@ -32,12 +31,12 @@ class _TutorCardState extends State<TutorCard> {
   void initState() {
     super.initState();
     _isFavorite = false;
-    tutor_utils
-        .getTagsFromSpecialities(widget.tutor.specialties)
-        .forEach((tag) => _tags.add(Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
-              child: Tag(text: tag, isActive: true),
-            )));
+    // tutor_utils
+    //     .getTagsFromSpecialities(widget.tutor.specialties)
+    //     .forEach((tag) => _tags.add(Padding(
+    //           padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+    //           child: Tag(text: tag, isActive: true),
+    //         )));
   }
 
   @override
@@ -84,9 +83,9 @@ class _TutorCardState extends State<TutorCard> {
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
-              StarRatingBar(
-                  stars: tutor_utils
-                      .getRatingFromFeedbacks(widget.tutor.feedbacks ?? [])),
+              // StarRatingBar(
+              //     stars: tutor_utils
+              //         .getRatingFromFeedbacks(widget.tutor.feedbacks ?? [])),
               Wrap(children: _tags),
               const SizedBox(
                 height: 16,
