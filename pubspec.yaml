@@ -35,13 +35,13 @@ dependencies:
     flutter_boxicons: ^3.0.0
     cached_network_image: ^3.1.0
     intl: ^0.17.0
+    country_picker: ^2.0.8
     country_icons: ^2.0.2
     dotted_border: ^2.0.0+1
     provider: ^6.0.1
     timeago: ^3.1.0
     shared_preferences: ^2.0.9
     flutter_tags: ^0.4.9+1
-    country_code_picker: ^2.0.2
     syncfusion_flutter_datepicker: ^19.3.44
     syncfusion_flutter_calendar: ^19.3.44
     flutter_countdown_timer: ^4.1.0
