@@ -6,8 +6,9 @@ import 'package:lettutor/pages/lesson_room_page/widgets/call_control.dart';
 import 'package:lettutor/widgets/name_avatar.dart';
 
 class LessonRoomPage extends StatefulWidget {
-  const LessonRoomPage({Key? key}) : super(key: key);
+  const LessonRoomPage({Key? key, required this.startTime}) : super(key: key);
 
+  final int startTime;
   @override
   _LessonRoomPageState createState() => _LessonRoomPageState();
 }
@@ -29,7 +30,6 @@ class _LessonRoomPageState extends State<LessonRoomPage> {
       }
     });
   }
-
 
   @override
   void initState() {

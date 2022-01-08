@@ -1,4 +1,3 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
@@ -9,7 +8,7 @@ const setupContent =
     "Your tutor profile is your chance to market yourself to students on Tutoring. You can make edits later on your profile settings page."
     "New students may browse tutor profiles to find a tutor that fits their learning goals and personality. Returning students may use the tutor profiles to find tutors they've had great experiences with already.";
 
-enum Level {beginer, intermediate, advanced}
+enum Level { beginer, intermediate, advanced }
 
 class ProfileStep extends StatefulWidget {
   const ProfileStep({Key? key, required this.onPressNext}) : super(key: key);
@@ -160,14 +159,7 @@ class _ProfileStepState extends State<ProfileStep> {
           height: 8,
         ),
         GestureDetector(
-          onTap: () => showCountryPicker(
-            context: context,
-            onSelect: (Country country) {
-              setState(() {
-                countryName = country.displayNameNoCountryCode;
-              });
-            },
-          ),
+          onTap: () {},
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             width: double.infinity,
@@ -200,15 +192,29 @@ class _ProfileStepState extends State<ProfileStep> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(selectedDate.toString().split(' ')[0]),
-              IconButton(onPressed: () => _selectDate(context), icon: const Icon(Icons.calendar_today_outlined, color: Colors.grey,))
+              IconButton(
+                  onPressed: () => _selectDate(context),
+                  icon: const Icon(
+                    Icons.calendar_today_outlined,
+                    color: Colors.grey,
+                  ))
             ],
           ),
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         const DividerText(text: 'CV'),
-        const SizedBox(height: 16,),
-        const Text("Students will view this information on your profile to decide if you're a good fit for them.", style: TextStyle(fontSize: 12),),
-        const SizedBox(height: 8,),
+        const SizedBox(
+          height: 16,
+        ),
+        const Text(
+          "Students will view this information on your profile to decide if you're a good fit for them.",
+          style: TextStyle(fontSize: 12),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -217,9 +223,9 @@ class _ProfileStepState extends State<ProfileStep> {
               borderRadius: BorderRadius.circular(4)),
           child: const Center(
               child: Text(
-                'In order to protect your privacy, please do not share your personal information (email, phone number, social email, skype, etc) in your profile.',
-                style: TextStyle(fontSize: 12),
-              )),
+            'In order to protect your privacy, please do not share your personal information (email, phone number, social email, skype, etc) in your profile.',
+            style: TextStyle(fontSize: 12),
+          )),
         ),
         const SizedBox(
           height: 8,
@@ -233,7 +239,8 @@ class _ProfileStepState extends State<ProfileStep> {
         TextFormField(
           maxLines: 3,
           decoration: InputDecoration(
-            hintText: "Interests, hobbies, memorable life experiences, or anything else you'd like to share!",
+            hintText:
+                "Interests, hobbies, memorable life experiences, or anything else you'd like to share!",
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
@@ -250,7 +257,8 @@ class _ProfileStepState extends State<ProfileStep> {
         TextFormField(
           maxLines: 3,
           decoration: InputDecoration(
-            hintText: 'Example: "Bachelor of Arts in English from Cambly University; Certified yoga instructor, Second Language Acquisition and Teaching  (SLAT) certificate from Cambly University"',
+            hintText:
+                'Example: "Bachelor of Arts in English from Cambly University; Certified yoga instructor, Second Language Acquisition and Teaching  (SLAT) certificate from Cambly University"',
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
@@ -287,7 +295,9 @@ class _ProfileStepState extends State<ProfileStep> {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         const DividerText(text: 'Language I speak'),
         const SizedBox(
           height: 8,
@@ -305,9 +315,13 @@ class _ProfileStepState extends State<ProfileStep> {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         const DividerText(text: 'Who I teach'),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -316,9 +330,9 @@ class _ProfileStepState extends State<ProfileStep> {
               borderRadius: BorderRadius.circular(4)),
           child: const Center(
               child: Text(
-                'This is the first thing students will see when looking for tutors.',
-                style: TextStyle(fontSize: 12),
-              )),
+            'This is the first thing students will see when looking for tutors.',
+            style: TextStyle(fontSize: 12),
+          )),
         ),
         const SizedBox(
           height: 8,
@@ -332,12 +346,15 @@ class _ProfileStepState extends State<ProfileStep> {
         TextFormField(
           maxLines: 3,
           decoration: InputDecoration(
-            hintText: 'Example: "I was a doctor for 35 years and can help you practice business or medical English. I also enjoy teaching beginners as I am very patient and always speak slowly and clearly. "',
+            hintText:
+                'Example: "I was a doctor for 35 years and can help you practice business or medical English. I also enjoy teaching beginners as I am very patient and always speak slowly and clearly. "',
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(
+          height: 8,
+        ),
         const Text(
           'I am best at teaching students who are',
         ),
@@ -374,7 +391,9 @@ class _ProfileStepState extends State<ProfileStep> {
             }),
           ),
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(
+          height: 8,
+        ),
         const Text(
           'My specialities are',
         ),
@@ -382,18 +401,21 @@ class _ProfileStepState extends State<ProfileStep> {
           height: 8,
         ),
         Column(
-          children: specialities.keys.map((e) => CheckboxListTile(
-            title: Text(e),
-            controlAffinity: ListTileControlAffinity.leading,
-            onChanged: (bool? value) {
-              setState(() {
-                specialities[e] = value ?? false;
-              });
-            },
-            value: specialities[e],
-          )).toList(),
+          children: specialities.keys
+              .map((e) => CheckboxListTile(
+                    title: Text(e),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        specialities[e] = value ?? false;
+                      });
+                    },
+                    value: specialities[e],
+                  ))
+              .toList(),
         ),
-        PrimaryButton(isDisabled: false, onPressed: widget.onPressNext, text: 'Save')
+        PrimaryButton(
+            isDisabled: false, onPressed: widget.onPressNext, text: 'Save')
       ],
     );
   }

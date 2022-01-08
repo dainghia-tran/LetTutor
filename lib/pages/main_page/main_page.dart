@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lettutor/pages/main_page/home_page/home_page.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
-import 'package:lettutor/pages/main_page/message_page/message_page.dart';
 import 'package:lettutor/pages/main_page/settings_page/settings_page.dart';
 import 'package:lettutor/pages/main_page/tutors_page/tutors_page.dart';
 import 'package:lettutor/pages/main_page/upcoming_page/upcoming_page.dart';
@@ -17,7 +16,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Widget> pages = [
     const HomePage(),
-    const MessagePage(),
     const UpcomingPage(),
     const TutorsPage(),
     const SettingsPage()
@@ -67,10 +65,6 @@ class _MainPageState extends State<MainPage> {
                   icon: Icon(Icons.home_outlined),
                   activeIcon: Icon(Icons.home),
                   label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.message_outlined),
-                  activeIcon: Icon(Icons.message),
-                  label: 'Message'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.access_time_outlined),
                   activeIcon: Icon(Icons.access_time),

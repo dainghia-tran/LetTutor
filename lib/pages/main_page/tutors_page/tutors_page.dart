@@ -1,8 +1,6 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor/pages/main_page/tutors_page/tutors_page_bloc.dart';
-import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
 import 'package:lettutor/widgets/search_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
@@ -27,8 +25,7 @@ class TutorsPage extends StatefulWidget {
   _TutorsPageState createState() => _TutorsPageState();
 }
 
-class _TutorsPageState extends State<TutorsPage>
-    with AutomaticKeepAliveClientMixin {
+class _TutorsPageState extends State<TutorsPage> {
   var countryCode = 'vn';
   final tutorsBloc = TutorsBloc();
   var tagIndex = 0;
@@ -41,7 +38,6 @@ class _TutorsPageState extends State<TutorsPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -62,16 +58,16 @@ class _TutorsPageState extends State<TutorsPage>
               children: [
                 IconButton(
                     onPressed: () {
-                      showCountryPicker(
-                        context: context,
-                        onSelect: (Country country) {
-                          setState(() {
-                            countryCode = country.countryCode.toLowerCase();
-                            tagIndex = -1;
-                          });
-                          tutorsBloc.filterTutorsByCountry(country.countryCode);
-                        },
-                      );
+                      // showCountryPicker(
+                      //   context: context,
+                      //   onSelect: (Country country) {
+                      //     setState(() {
+                      //       countryCode = country.countryCode.toLowerCase();
+                      //       tagIndex = -1;
+                      //     });
+                      //     tutorsBloc.filterTutorsByCountry(country.countryCode);
+                      //   },
+                      // );
                     },
                     icon: SvgPicture.asset(
                       'icons/flags/svg/$countryCode.svg',
@@ -106,12 +102,6 @@ class _TutorsPageState extends State<TutorsPage>
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               TutorProfilePage(tutor: e))),
-                                  onClickMessage: () => Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              PrivateMessagePage(
-                                                tutor: e,
-                                              ))),
                                 ),
                               ),
                             )
@@ -151,7 +141,4 @@ class _TutorsPageState extends State<TutorsPage>
     }
     return children;
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

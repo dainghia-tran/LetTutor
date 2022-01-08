@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor/widgets/lession_history_card.dart';
-import 'package:lettutor/widgets/tutor_card_compact.dart';
+import 'package:lettutor/widgets/schedule_card.dart';
 
 class SessionHistoryPage extends StatefulWidget {
   const SessionHistoryPage({Key? key}) : super(key: key);
@@ -38,13 +38,16 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                       opacity: top <= 100 ? 1.0 : 0.0,
                       child: const Text(
                         'Session history',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                     background: SizedBox(
                         height: 50,
                         width: 50,
-                        child: SvgPicture.asset('assets/schedule.svg',)),
+                        child: SvgPicture.asset(
+                          'assets/schedule.svg',
+                        )),
                   );
                 },
               ),
@@ -90,25 +93,6 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                 ),
               ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              TutorCardCompat(
-                  tutorName: 'Tran Nghia', national: 'Vietnam', onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: LessonHistoryCard(lessonTime: '00:00 - 00:25'),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonHistoryCard(lessonTime: '00:30 - 00:55'),
-              ),
-              TutorCardCompat(
-                  tutorName: 'Elise Vu', national: 'Vietnam', onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonHistoryCard(lessonTime: '00:30 - 00:55'),
-              ),
-            ])),
             SliverAppBar(
               automaticallyImplyLeading: false,
               centerTitle: false,
@@ -132,25 +116,6 @@ class _SessionHistoryPageState extends State<SessionHistoryPage> {
                 ),
               ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              TutorCardCompat(
-                  tutorName: 'Tran Nghia', national: 'Vietnam', onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: LessonHistoryCard(lessonTime: '00:00 - 00:25'),
-              ),
-              TutorCardCompat(
-                  tutorName: 'Elise Vu', national: 'Vietnam', onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonHistoryCard(lessonTime: '00:30 - 00:55'),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonHistoryCard(lessonTime: '00:30 - 00:55'),
-              ),
-            ]))
           ],
         ),
       ),

@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lettutor/widgets/lesson_time_card.dart';
-import 'package:lettutor/widgets/tutor_card_compact.dart';
+import 'package:lettutor/pages/main_page/upcoming_page/upcoming_provider.dart';
+import 'package:lettutor/widgets/button/secondary_button.dart';
+import 'package:lettutor/widgets/schedule_card.dart';
+import 'package:provider/provider.dart';
 
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({Key? key}) : super(key: key);
@@ -13,10 +14,20 @@ class UpcomingPage extends StatefulWidget {
 
 class _UpcomingPageState extends State<UpcomingPage>
     with AutomaticKeepAliveClientMixin {
+  final UpcomingProvider _upcomingProvider = UpcomingProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    _upcomingProvider.getSchedules(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
+    return ChangeNotifierProvider.value(
+      value: _upcomingProvider,
+      child: Scaffold(
         appBar: AppBar(
           elevation: 0,
           title: const Text(
@@ -25,121 +36,84 @@ class _UpcomingPageState extends State<UpcomingPage>
           ),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset('assets/schedule.svg'),
-                    const Text(
-                      'Here is a list of the sessions you have booked',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    const Text(
-                      'You can track when the meeting starts, join the meeting with one click or can cancel the meeting before 2 hours',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )
-                  ],
+        body: Consumer<UpcomingProvider>(builder: (_, prov, __) {
+          return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset('assets/schedule.svg'),
+                      const Text(
+                        'Here is a list of the sessions you have booked',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      const Text(
+                        'You can track when the meeting starts, join the meeting with one click or can cancel the meeting before 2 hours',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverAppBar(
-              centerTitle: false,
-              leadingWidth: 0,
-              backgroundColor: Colors.lightGreen,
-              pinned: true,
-              title: Container(
-                color: Colors.transparent,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Wed, 20 Oct 21',
-                      style: TextStyle(color: Colors.white),
+              prov.scheduleList.isNotEmpty
+                  ? _schedules()
+                  : prov.loading == true
+                      ? const SliverToBoxAdapter()
+                      : SliverToBoxAdapter(
+                          child: Container(
+                            child: const Text(
+                              "No data",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(top: 20),
+                          ),
+                        ),
+              if (prov.page * prov.perPage < prov.count && !prov.loading)
+                SliverToBoxAdapter(
+                  child: Container(
+                    child: SecondaryButton(
+                      text: "Load more",
+                      onPressed: () async {
+                        prov.page += 1;
+                        await prov.getSchedules(false);
+                      },
+                      isDisabled: false,
                     ),
-                    Text(
-                      '2 consecutive lessons',
-                      style: TextStyle(color: Colors.black54, fontSize: 14),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              TutorCardCompat(
-                  tutorName: 'Tran Nghia',
-                  national: 'Vietnam',
-                  onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: LessonTimeCard(lessonTime: '00:00 - 00:25'),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonTimeCard(lessonTime: '00:30 - 00:55'),
-              ),
-              TutorCardCompat(
-                  tutorName: 'Elise Vu',
-                  national: 'Vietnam',
-                  onPressDM: () {}),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: LessonTimeCard(lessonTime: '00:30 - 00:55'),
-              ),
-            ])),
-            SliverAppBar(
-              centerTitle: false,
-              leadingWidth: 0,
-              backgroundColor: Colors.grey,
-              pinned: true,
-              title: Container(
-                color: Colors.grey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Thu, 21 Oct 21',
-                      style: TextStyle(color: Colors.black87),
+                    margin: const EdgeInsets.only(
+                      top: 16,
+                      bottom: 4,
                     ),
-                    Text(
-                      '2 consecutive lessons',
-                      style: TextStyle(color: Colors.black54, fontSize: 14),
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-                  TutorCardCompat(
-                      tutorName: 'Tran Nghia',
-                      national: 'Vietnam',
-                      onPressDM: () {}),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: LessonTimeCard(lessonTime: '00:00 - 00:25'),
-                  ),
-                  TutorCardCompat(
-                      tutorName: 'Elise Vu',
-                      national: 'Vietnam',
-                      onPressDM: () {}),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: LessonTimeCard(lessonTime: '00:30 - 00:55'),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: LessonTimeCard(lessonTime: '00:30 - 00:55'),
-                  ),
-            ]))
-          ],
-        ));
+              if (prov.loading)
+                const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator())),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+  SliverList _schedules() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        final schedule = _upcomingProvider.scheduleList[index];
+        return ScheduleCard(
+          schedule: schedule,
+          onEdit: () async {
+            await _upcomingProvider.getSchedules(true);
+          },
+        );
+      }, childCount: _upcomingProvider.scheduleList.length),
+    );
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }

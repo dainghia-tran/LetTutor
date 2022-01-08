@@ -1,4 +1,3 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
@@ -31,7 +30,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final List<String> levelItems = ['Beginer', 'Intermediate', 'Advanced'];
   var level = 'Beginer';
 
-  final List<String> categories = ['TOEIC', 'TOEFL', 'IELTS', 'PET', 'KET', 'FLYERS'];
+  final List<String> categories = [
+    'TOEIC',
+    'TOEFL',
+    'IELTS',
+    'PET',
+    'KET',
+    'FLYERS'
+  ];
   var wantToLearn = 'IELTS';
 
   @override
@@ -112,7 +118,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(selectedDate.toString().split(' ')[0]),
-                    IconButton(onPressed: () => _selectDate(context), icon: const Icon(Icons.calendar_today_outlined, color: Colors.grey,))
+                    IconButton(
+                        onPressed: () => _selectDate(context),
+                        icon: const Icon(
+                          Icons.calendar_today_outlined,
+                          color: Colors.grey,
+                        ))
                   ],
                 ),
               ),
@@ -139,14 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 8,
               ),
               GestureDetector(
-                onTap: () => showCountryPicker(
-                  context: context,
-                  onSelect: (Country country) {
-                    setState(() {
-                      countryName = country.displayNameNoCountryCode;
-                    });
-                  },
-                ),
+                onTap: () {},
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
@@ -209,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     value: wantToLearn,
                     items: categories
                         .map((e) =>
-                        DropdownMenuItem<String>(value: e, child: Text(e)))
+                            DropdownMenuItem<String>(value: e, child: Text(e)))
                         .toList(),
                     onChanged: (selected) {
                       setState(() {
@@ -219,8 +223,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 32,),
-              PrimaryButtonRounded(isDisabled: false, onPressed: () => Navigator.of(context).pop(), text: 'Save')
+              const SizedBox(
+                height: 32,
+              ),
+              PrimaryButtonRounded(
+                  isDisabled: false,
+                  onPressed: () => Navigator.of(context).pop(),
+                  text: 'Save')
             ],
           ),
         ),

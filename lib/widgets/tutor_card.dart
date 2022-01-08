@@ -1,23 +1,23 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/app_provider.dart';
+import 'package:lettutor/models/tutor.dart';
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 
 class TutorCard extends StatefulWidget {
-  const TutorCard(
-      {Key? key,
-      required this.tutor,
-      required this.onClickCard,
-      required this.onClickMessage})
-      : super(key: key);
+  const TutorCard({
+    Key? key,
+    required this.tutor,
+    required this.onClickCard,
+  }) : super(key: key);
 
-  final tutor;
+  final Tutor tutor;
   final onClickCard;
-  final onClickMessage;
 
   @override
   _TutorCardState createState() => _TutorCardState();
@@ -29,14 +29,15 @@ class _TutorCardState extends State<TutorCard> {
 
   @override
   void initState() {
+    inspect(widget.tutor);
     super.initState();
     _isFavorite = false;
-    // tutor_utils
-    //     .getTagsFromSpecialities(widget.tutor.specialties)
-    //     .forEach((tag) => _tags.add(Padding(
-    //           padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
-    //           child: Tag(text: tag, isActive: true),
-    //         )));
+    tutor_utils
+        .getTagsFromSpecialities(widget.tutor.specialties)
+        .forEach((tag) => _tags.add(Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+              child: Tag(text: tag, isActive: true),
+            )));
   }
 
   @override
@@ -58,7 +59,8 @@ class _TutorCardState extends State<TutorCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomCircleAvatar(avatarUrl: widget.tutor.avatar ?? ''),
+                  CustomCircleAvatar(
+                      avatarUrl: widget.tutor.user?.avatar ?? ''),
                   GestureDetector(
                     onTap: () {
                       if (_isFavorite) {
@@ -79,13 +81,13 @@ class _TutorCardState extends State<TutorCard> {
                 height: 8,
               ),
               Text(
-                widget.tutor.name ?? '',
+                widget.tutor.user?.name ?? '',
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
-              // StarRatingBar(
-              //     stars: tutor_utils
-              //         .getRatingFromFeedbacks(widget.tutor.feedbacks ?? [])),
+              StarRatingBar(
+                stars: widget.tutor.avgRating ?? 0,
+              ),
               Wrap(children: _tags),
               const SizedBox(
                 height: 16,

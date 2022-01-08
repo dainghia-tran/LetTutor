@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/pages/courses_page/courses_page.dart';
 import 'package:lettutor/pages/courses_page/widgets/course.dart';
 import 'package:lettutor/pages/explore_course_page/explore_course_page.dart';
-import 'package:lettutor/pages/private_message_page/private_message_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/reviews_dialog.dart';
@@ -101,26 +100,6 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                PrivateMessagePage(tutor: widget.tutor),
-                          ));
-                        },
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.message_outlined,
-                              color: Colors.blue,
-                            ),
-                            Text(
-                              'Message',
-                              style: TextStyle(color: Colors.blue),
-                            )
-                          ],
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () {
                           if (_isFavorite) {
@@ -263,22 +242,22 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                     'Specialities',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                  //   child: Wrap(
-                  //       children: tutor_utils
-                  //           .getTagsFromSpecialities(widget.tutor.specialties)
-                  //           .map(
-                  //             (e) => Padding(
-                  //               padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
-                  //               child: Tag(
-                  //                 text: e,
-                  //                 isActive: true,
-                  //               ),
-                  //             ),
-                  //           )
-                  //           .toList()),
-                  // ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Wrap(
+                        children: tutor_utils
+                            .getTagsFromSpecialities(widget.tutor.specialties)
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                                child: Tag(
+                                  text: e,
+                                  isActive: true,
+                                ),
+                              ),
+                            )
+                            .toList()),
+                  ),
                   const Text(
                     'Suggested courses',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
