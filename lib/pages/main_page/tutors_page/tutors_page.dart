@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor/pages/main_page/tutors_page/tutors_page_bloc.dart';
@@ -56,23 +59,20 @@ class _TutorsPageState extends State<TutorsPage> {
             ),
             Row(
               children: [
-                IconButton(
-                    onPressed: () {
-                      // showCountryPicker(
-                      //   context: context,
-                      //   onSelect: (Country country) {
-                      //     setState(() {
-                      //       countryCode = country.countryCode.toLowerCase();
-                      //       tagIndex = -1;
-                      //     });
-                      //     tutorsBloc.filterTutorsByCountry(country.countryCode);
-                      //   },
-                      // );
-                    },
-                    icon: SvgPicture.asset(
-                      'icons/flags/svg/$countryCode.svg',
-                      package: 'country_icons',
-                    )),
+                CountryCodePicker(
+                  onChanged: (country) {
+                    setState(() {
+                      countryCode = country.code?.toLowerCase() ?? 'VN';
+                      tagIndex = -1;
+                    });
+                    tutorsBloc.filterTutorsByCountry(
+                        country.code?.toLowerCase() ?? 'VN');
+                  },
+                  initialSelection: 'VN',
+                  showCountryOnly: true,
+                  showOnlyCountryWhenClosed: false,
+                  alignLeft: false,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,

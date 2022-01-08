@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:lettutor/models/tutor.dart';
 import 'package:lettutor/repositories/tutor_repo.dart' as tutor_repo;
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 
 class TutorsBloc {
-  List tutors = [];
+  List<Tutor> tutors = [];
   final _tutorsController = StreamController<List>();
 
   Stream<List> get tutorsStream => _tutorsController.stream;
@@ -14,12 +15,12 @@ class TutorsBloc {
   }
 
   void getTutors() async {
-    // try {
-    //   tutors = await tutor_repo.fetchAllTutors();
-    //   _tutorsController.add(tutors..sort(tutor_utils.compareRating));
-    // } catch (e) {
-    //   _tutorsController.addError(e);
-    // }
+    try {
+      tutors = await tutor_repo.getTutors(1);
+      _tutorsController.add(tutors..sort(tutor_utils.compareRating));
+    } catch (e) {
+      _tutorsController.addError(e);
+    }
   }
 
   void searchTutors(String keyword) {
