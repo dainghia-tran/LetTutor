@@ -1,5 +1,11 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lettutor/constants/http.dart';
+import 'package:lettutor/pages/login_page/login_page.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -10,6 +16,9 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  var _resetPassKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,42 +41,89 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Reset Password',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-            ),
-            const Text(
-              'Please enter your email address to search for your account',
-              style: TextStyle(fontSize: 14),
-              textAlign: TextAlign.center,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: TextFormField(
-                maxLines: 1,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
+        child: Form(
+          key: _resetPassKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Reset Password',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+              ),
+              const Text(
+                'Please enter your email address to search for your account',
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: TextFormField(
+                  controller: emailController,
+                  maxLines: 1,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Required";
+                    } else if (!EmailValidator.validate(value)) {
+                      return "Not a valid email";
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: PrimaryButton(
-                isDisabled: false,
-                onPressed: () => {},
-                text: 'Send reset link',
-                width: 150,
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: PrimaryButton(
+                  isDisabled: false,
+                  onPressed: () async {
+                    if (_resetPassKey.currentState!.validate()) {
+                      bool result = await sendReset();
+                      if (result == true) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  text: 'Send reset link',
+                  width: 150,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<bool> sendReset() async {
+    try {
+      var body = {
+        'email': emailController.text,
+      };
+      var dio = Http().client;
+      await dio.post(
+        'user/forgotPassword',
+        data: body,
+      );
+      const snackbar =
+          SnackBar(content: Text('Reset link sent to your email address'));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return true;
+    } catch (e) {
+      final snackbar = SnackBar(
+          content: Text((e as DioError).response?.data['message'] ??
+              'Something went wrong'));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return false;
+    }
   }
 }
