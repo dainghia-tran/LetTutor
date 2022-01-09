@@ -67,6 +67,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   @override
+  void dispose() {
+    _nameController?.dispose();
+    _phoneController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: commonInfoForm,
@@ -127,6 +134,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         width: 1,
                       ),
                     ),
+                    height: 56,
                     child: CountryCodePicker(
                       onChanged: (CountryCode countryCode) {
                         setState(() {
@@ -143,25 +151,33 @@ class _PersonalInfoState extends State<PersonalInfo> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(8)),
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(),
-                Text(birthday.toString().split(' ')[0]),
-                IconButton(
-                    onPressed: () => _selectDate(context),
-                    icon: const Icon(
-                      Icons.calendar_today_outlined,
-                      color: Colors.grey,
-                    ))
-              ],
-            ),
+          Row(
+            children: [
+              const Text('Birthday'),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8)),
+                  height: 56,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(),
+                      Text(birthday.toString().split(' ')[0]),
+                      IconButton(
+                          onPressed: () => _selectDate(context),
+                          icon: const Icon(
+                            Icons.calendar_today_outlined,
+                            color: Colors.grey,
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           Container(
             margin: const EdgeInsets.only(top: 16, bottom: 10),

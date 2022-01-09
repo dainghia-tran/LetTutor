@@ -102,13 +102,11 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   Future<bool> updateTutorInfo(
-      BuildContext context,
       String interests,
       String exp,
       String education,
       String profession,
       String bio,
-      String targetStudent,
       Level level,
       List specialties,
       String videoPath,
@@ -130,22 +128,8 @@ class ProfileProvider extends ChangeNotifier {
         "languages": language
       });
       await dio.post('tutor', data: formData);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Update tutor info successfully",
-          ),
-        ),
-      );
       return true;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Update tutor data failed, try again later",
-          ),
-        ),
-      );
       inspect(e);
       return false;
     }

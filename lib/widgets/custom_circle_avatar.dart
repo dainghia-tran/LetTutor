@@ -13,6 +13,7 @@ class CustomCircleAvatar extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular((dimension ?? 50) / 2),
       child: CachedNetworkImage(
+        useOldImageOnUrlChange: true,
         fit: BoxFit.cover,
         height: dimension ?? 50,
         width: dimension ?? 50,

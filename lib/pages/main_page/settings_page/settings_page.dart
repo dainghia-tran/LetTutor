@@ -53,9 +53,11 @@ class _SettingsPageState extends State<SettingsPage>
               children: [
                 Consumer<SettingsProvider>(builder: (_, prov, __) {
                   return GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    )),
+                    onTap: () => Navigator.of(context)
+                        .push(MaterialPageRoute(
+                          builder: (context) => const ProfilePage(),
+                        ))
+                        .then((value) => prov.getUserDetail()),
                     child: Row(
                       children: [
                         CustomCircleAvatar(

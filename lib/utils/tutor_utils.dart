@@ -19,6 +19,14 @@ List<String> getTagsFromSpecialities(String? specialties) {
   return tags;
 }
 
+List<String> getFormatedTags(List<String?> specialties) {
+  List<String> tags = [];
+  for (var speciality in specialties) {
+    tags.add(speciality?.trim().replaceAll('-', ' ').toTitleCase() ?? '');
+  }
+  return tags;
+}
+
 int compareRating(Tutor a, Tutor b) {
   double ratingA = getRatingFromFeedbacks(a.feedbacks ?? []);
   double ratingB = getRatingFromFeedbacks(b.feedbacks ?? []);

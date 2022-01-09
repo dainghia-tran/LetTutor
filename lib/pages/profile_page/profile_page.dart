@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lettutor/pages/profile_page/components/personal_info.dart';
+import 'package:lettutor/pages/profile_page/components/tutor_info.dart';
 import 'package:lettutor/pages/profile_page/profile_provider.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
@@ -147,6 +148,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 16,
                   ),
+                  Row(
+                    children: const [
+                      Text('Tutor Infomation',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
+                      SizedBox(width: 4),
+                      Expanded(
+                          child: Divider(
+                        thickness: 2,
+                        color: Colors.grey,
+                      )),
+                    ],
+                  ),
+                  if (prov.user != null) TutorInfo(user: prov.user!),
                 ],
               );
             }),
