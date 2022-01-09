@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lettutor/pages/main_page/tutors_page/tutors_page_bloc.dart';
 import 'package:lettutor/pages/tutor_profile_page/tutor_profile_page.dart';
 import 'package:lettutor/widgets/search_bar.dart';
@@ -108,8 +105,11 @@ class _TutorsPageState extends State<TutorsPage> {
                             .toList(),
                       );
                     } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Container(
+                        margin: const EdgeInsets.only(top: 200),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     }
                   },

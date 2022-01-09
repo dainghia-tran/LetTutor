@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -155,6 +156,12 @@ class _HomePageState extends State<HomePage> {
                       }
 
                       if (snapshot.hasData) {
+                        if (snapshot.data!.isEmpty) {
+                          return Container(
+                            margin: const EdgeInsets.only(top: 200),
+                            child: const Text('Currently no favorite tutor'),
+                          );
+                        }
                         return Column(
                           children: snapshot.data!
                               .map(
@@ -172,8 +179,9 @@ class _HomePageState extends State<HomePage> {
                               .toList(),
                         );
                       } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return Container(
+                          margin: const EdgeInsets.only(top: 200),
+                          child: const CircularProgressIndicator(),
                         );
                       }
                     },

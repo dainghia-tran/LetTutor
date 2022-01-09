@@ -81,11 +81,12 @@ class _BookingHistoryPageState extends State<BookingHistoryPage> {
                           },
                         ),
                       if (prov.isLoading == true)
-                        prov.scheduleList.isEmpty
-                            ? const Expanded(
-                                child:
-                                    Center(child: CircularProgressIndicator()))
-                            : const Center(child: CircularProgressIndicator())
+                        Container(
+                          margin: const EdgeInsets.only(top: 300),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
                     ],
                   );
                 },

@@ -64,6 +64,7 @@ class _UpcomingPageState extends State<UpcomingPage>
                       ? const SliverToBoxAdapter()
                       : SliverToBoxAdapter(
                           child: Container(
+                            margin: const EdgeInsets.only(top: 200),
                             child: const Text(
                               "No data",
                               style: TextStyle(
@@ -91,8 +92,14 @@ class _UpcomingPageState extends State<UpcomingPage>
                   ),
                 ),
               if (prov.loading)
-                const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator())),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 200),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
             ],
           );
         }),
