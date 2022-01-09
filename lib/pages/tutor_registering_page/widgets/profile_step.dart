@@ -1,5 +1,12 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lettutor/constants/enum.dart';
+import 'package:lettutor/pages/tutor_registering_page/tutor_regstering_provider.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/divider_text.dart';
 import 'package:lettutor/widgets/expandable_text.dart';
@@ -7,8 +14,6 @@ import 'package:lettutor/widgets/expandable_text.dart';
 const setupContent =
     "Your tutor profile is your chance to market yourself to students on Tutoring. You can make edits later on your profile settings page."
     "New students may browse tutor profiles to find a tutor that fits their learning goals and personality. Returning students may use the tutor profiles to find tutors they've had great experiences with already.";
-
-enum Level { beginer, intermediate, advanced }
 
 class ProfileStep extends StatefulWidget {
   const ProfileStep({Key? key, required this.onPressNext}) : super(key: key);
@@ -19,7 +24,7 @@ class ProfileStep extends StatefulWidget {
 }
 
 class _ProfileStepState extends State<ProfileStep> {
-  Level? level = Level.beginer;
+  Level? level = Level.Beginner;
   var countryName = 'Vietnam';
   DateTime selectedDate = DateTime.now();
   Map<String, bool> specialities = {
@@ -36,6 +41,8 @@ class _ProfileStepState extends State<ProfileStep> {
     'TOEIC': false,
   };
 
+  final ImagePicker picker = ImagePicker();
+
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -47,6 +54,7 @@ class _ProfileStepState extends State<ProfileStep> {
       setState(() {
         selectedDate = picked;
       });
+      TutorRegisteringProvider.of(context).birthday = picked;
     }
   }
 
@@ -98,82 +106,78 @@ class _ProfileStepState extends State<ProfileStep> {
               height: 200,
               width: 200,
               color: Colors.grey.shade200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Upload avatar here...',
-                    style: TextStyle(fontSize: 12, color: Colors.black38),
-                  ),
-                  Text(
-                    'Tap to upload',
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black38,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+              child: (TutorRegisteringProvider.of(context).avatarPath == null)
+                  ? GestureDetector(
+                      onTap: () async {
+                        final XFile? image =
+                            await picker.pickImage(source: ImageSource.gallery);
+                        if (image != null) {
+                          setState(() {
+                            TutorRegisteringProvider.of(context).avatarPath =
+                                image.path;
+                          });
+                        }
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            'Upload avatar here...',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.black38),
+                          ),
+                          Text(
+                            'Tap to upload',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black38,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Image.file(
+                      File(TutorRegisteringProvider.of(context).avatarPath!),
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
         ),
         const SizedBox(
           height: 8,
         ),
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              color: const Color(0xFFE6F7FF),
-              border: Border.all(width: 1, color: Colors.blue),
-              borderRadius: BorderRadius.circular(4)),
-          child: const Center(
-              child: Text(
-            'Please upload a professional photo. See guidelines',
-            style: TextStyle(fontSize: 12),
-          )),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        const Text(
-          'Phone number',
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          maxLines: 1,
-          decoration: InputDecoration(
-            hintText: 'Phone number',
-            isDense: true,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        const Text(
-          "I'm from",
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            width: double.infinity,
+        if (TutorRegisteringProvider.of(context).avatarPath == null)
+          Container(
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(8)),
-            height: 48,
-            child: Align(
-                alignment: Alignment.centerLeft,
+                color: const Color(0xFFE6F7FF),
+                border: Border.all(width: 1, color: Colors.blue),
+                borderRadius: BorderRadius.circular(4)),
+            child: const Center(
                 child: Text(
-                  countryName,
-                  textAlign: TextAlign.left,
-                )),
+              'Please upload a professional photo. See guidelines',
+              style: TextStyle(fontSize: 12),
+            )),
           ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          children: [
+            const Text(
+              "I'm from:",
+            ),
+            CountryCodePicker(
+              initialSelection: "VN",
+              showOnlyCountryWhenClosed: true,
+              enabled: true,
+              alignLeft: false,
+              onChanged: (value) {
+                TutorRegisteringProvider.of(context).countryCode =
+                    value.code ?? 'VN';
+              },
+            ),
+          ],
         ),
         const SizedBox(
           height: 8,
@@ -193,11 +197,12 @@ class _ProfileStepState extends State<ProfileStep> {
             children: [
               Text(selectedDate.toString().split(' ')[0]),
               IconButton(
-                  onPressed: () => _selectDate(context),
-                  icon: const Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.grey,
-                  ))
+                onPressed: () => _selectDate(context),
+                icon: const Icon(
+                  Icons.calendar_today_outlined,
+                  color: Colors.grey,
+                ),
+              )
             ],
           ),
         ),
@@ -244,6 +249,9 @@ class _ProfileStepState extends State<ProfileStep> {
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          onChanged: (value) {
+            TutorRegisteringProvider.of(context).interests = value;
+          },
         ),
         const SizedBox(
           height: 8,
@@ -262,6 +270,9 @@ class _ProfileStepState extends State<ProfileStep> {
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          onChanged: (value) {
+            TutorRegisteringProvider.of(context).education = value;
+          },
         ),
         const SizedBox(
           height: 8,
@@ -278,6 +289,9 @@ class _ProfileStepState extends State<ProfileStep> {
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          onChanged: (value) {
+            TutorRegisteringProvider.of(context).experience = value;
+          },
         ),
         const SizedBox(
           height: 8,
@@ -294,6 +308,9 @@ class _ProfileStepState extends State<ProfileStep> {
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          onChanged: (value) {
+            TutorRegisteringProvider.of(context).profession = value;
+          },
         ),
         const SizedBox(
           height: 16,
@@ -314,6 +331,9 @@ class _ProfileStepState extends State<ProfileStep> {
             isDense: true,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          onChanged: (value) {
+            TutorRegisteringProvider.of(context).language = value;
+          },
         ),
         const SizedBox(
           height: 16,
@@ -364,31 +384,34 @@ class _ProfileStepState extends State<ProfileStep> {
         ListTile(
           title: const Text('Beginer'),
           leading: Radio<Level>(
-            value: Level.beginer,
-            groupValue: level,
-            onChanged: (value) => setState(() {
-              level = value;
-            }),
+            value: Level.Beginner,
+            groupValue:
+                TutorRegisteringProvider.of(context, listen: true).level,
+            onChanged: (value) {
+              TutorRegisteringProvider.of(context).level = Level.Beginner;
+            },
           ),
         ),
         ListTile(
           title: const Text('Intermediate'),
           leading: Radio<Level>(
-            value: Level.intermediate,
-            groupValue: level,
-            onChanged: (value) => setState(() {
-              level = value;
-            }),
+            value: Level.Intermediate,
+            groupValue:
+                TutorRegisteringProvider.of(context, listen: true).level,
+            onChanged: (value) {
+              TutorRegisteringProvider.of(context).level = Level.Intermediate;
+            },
           ),
         ),
         ListTile(
           title: const Text('Advanced'),
           leading: Radio<Level>(
-            value: Level.advanced,
-            groupValue: level,
-            onChanged: (value) => setState(() {
-              level = value;
-            }),
+            value: Level.Advanced,
+            groupValue:
+                TutorRegisteringProvider.of(context, listen: true).level,
+            onChanged: (value) {
+              TutorRegisteringProvider.of(context).level = Level.Advanced;
+            },
           ),
         ),
         const SizedBox(
@@ -415,7 +438,14 @@ class _ProfileStepState extends State<ProfileStep> {
               .toList(),
         ),
         PrimaryButton(
-            isDisabled: false, onPressed: widget.onPressNext, text: 'Save')
+          isDisabled: false,
+          onPressed: () {
+            widget.onPressNext();
+            TutorRegisteringProvider.of(context).specialties =
+                specialities.keys.where((e) => specialities[e]!).toList();
+          },
+          text: 'Save',
+        )
       ],
     );
   }
