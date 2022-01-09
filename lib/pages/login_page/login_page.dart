@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (result != null) {
                                   AppProvider.of(context, listen: false)
                                       .setAuth(result);
-                                  Navigator.of(context).push(
+                                  Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (context) => const MainPage(),
                                     ),
