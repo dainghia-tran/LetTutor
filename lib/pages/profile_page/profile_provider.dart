@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 class ProfileProvider extends ChangeNotifier {
   User? user;
+  bool isLoading = true;
 
   static ProfileProvider of(BuildContext context, {listen = true}) =>
       Provider.of<ProfileProvider>(context, listen: listen);
@@ -24,6 +25,7 @@ class ProfileProvider extends ChangeNotifier {
       var res = await dio.get("user/info");
 
       user = User.fromJson(res.data["user"]);
+      isLoading = false;
     } catch (e) {
       inspect(e);
     }
@@ -32,6 +34,9 @@ class ProfileProvider extends ChangeNotifier {
 
   Future<bool> uploadAvatar(BuildContext context, String imagePath) async {
     try {
+      isLoading = true;
+      notifyListeners();
+
       var dio = Http().client;
       var accessToken = AppProvider.auth?.tokens?.access?.token;
       dio.options.headers["Authorization"] = "Bearer $accessToken";

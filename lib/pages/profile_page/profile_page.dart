@@ -3,7 +3,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lettutor/pages/profile_page/components/personal_info.dart';
 import 'package:lettutor/pages/profile_page/components/tutor_info.dart';
 import 'package:lettutor/pages/profile_page/profile_provider.dart';
-import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:provider/provider.dart';
 
@@ -55,24 +54,27 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            child: Consumer<ProfileProvider>(builder: (context, prov, _) {
-              return Column(
+        body: Consumer<ProfileProvider>(builder: (context, prov, _) {
+          if (prov.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Center(
                     child: Column(
                       children: [
                         Stack(
                           children: [
-                            Consumer<ProfileProvider>(
-                                builder: (context, prov, _) {
-                              return CustomCircleAvatar(
-                                  dimension: 75,
-                                  avatarUrl: prov.user?.avatar ?? '');
-                            }),
+                            CustomCircleAvatar(
+                                dimension: 75,
+                                avatarUrl: prov.user?.avatar ?? ''),
                             Positioned(
                               child: GestureDetector(
                                 onTap: () async {
@@ -165,10 +167,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   if (prov.user != null) TutorInfo(user: prov.user!),
                 ],
-              );
-            }),
-          ),
-        ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

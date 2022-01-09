@@ -99,7 +99,7 @@ class _TutorInfoState extends State<TutorInfo> {
     return Form(
       key: tutorInfoForm,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 16),
         child: Column(
           children: [
             const Text(

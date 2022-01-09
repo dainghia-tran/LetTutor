@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lettutor/utils/time_utils.dart' as time_utils;
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/star_rating_bar.dart';
+import 'package:lettutor/models/feedback.dart' as feedback_model;
 
 class UserReview extends StatelessWidget {
   const UserReview({Key? key, required this.feedback}) : super(key: key);
-  final feedback;
+  final feedback_model.Feedback feedback;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class UserReview extends StatelessWidget {
                   Flexible(
                     child: Text(
                       feedback.firstInfo?.name ?? '',
-                      style: const TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black87),
                     ),
                   ),
                   const SizedBox(
@@ -34,8 +35,9 @@ class UserReview extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      time_utils.getRelativeTime(feedback.createdAt ?? ''),
-                      style: const TextStyle(color: Colors.black12),
+                      time_utils.getRelativeTime(
+                          feedback.createdAt?.toIso8601String() ?? ''),
+                      style: const TextStyle(color: Colors.black38),
                       softWrap: true,
                       overflow: TextOverflow.fade,
                     ),
