@@ -81,7 +81,7 @@ class _TutorCardState extends State<TutorCard> {
                     onTap: () async {
                       await AppProvider.setFavorite(
                           widget.tutor.user?.id ?? (widget.tutor.userId ?? ''));
-                      if (widget.needReload != null) widget.needReload!();
+                      widget.needReload();
                     },
                     child: Icon(
                         _isFavorite ? Boxicons.bxs_heart : Boxicons.bx_heart,

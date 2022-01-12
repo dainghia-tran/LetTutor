@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:lettutor/app_provider.dart';
 import 'package:lettutor/pages/lesson_room_page/lesson_room_page.dart';
 import 'package:lettutor/pages/main_page/home_page/home_bloc.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
@@ -114,6 +115,9 @@ class _HomePageState extends State<HomePage> {
                                                           .scheduleDetailInfo
                                                           ?.startPeriodTimestamp ??
                                                       0,
+                                                  name: AppProvider
+                                                          .auth?.user?.name ??
+                                                      '',
                                                 ),
                                               ),
                                             ),

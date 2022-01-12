@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:lettutor/pages/advanced_settings_page/advanced_settings_page.dart';
 import 'package:lettutor/pages/booking_history_page/booking_history_page.dart';
 import 'package:lettutor/pages/courses_page/courses_page.dart';
-import 'package:lettutor/pages/ebooks_page/ebooks_page.dart';
 import 'package:lettutor/pages/login_page/login_page.dart';
 import 'package:lettutor/pages/main_page/main_page_bloc.dart';
 import 'package:lettutor/pages/main_page/settings_page/settings_provider.dart';
 import 'package:lettutor/pages/main_page/settings_page/widgets/setting_item.dart';
 import 'package:lettutor/pages/profile_page/profile_page.dart';
-import 'package:lettutor/pages/session_history_page/session_history_page.dart';
 import 'package:lettutor/pages/tutor_registering_page/tutor_registering_page.dart';
 import 'package:lettutor/pages/view_feedbacks_page/view_feedbacks_page.dart';
 import 'package:lettutor/widgets/button/primary_button_rounded.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -135,10 +133,15 @@ class _SettingsPageState extends State<SettingsPage>
                           text: 'Become a tutor',
                           iconData: Icons.emoji_people)),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: SettingItem(
-                      text: 'Our Website', iconData: Icons.language),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: GestureDetector(
+                    onTap: () {
+                      launch('https://app.lettutor.com/');
+                    },
+                    child: const SettingItem(
+                        text: 'Our Website', iconData: Icons.language),
+                  ),
                 ),
                 const SizedBox(
                   height: 48,
