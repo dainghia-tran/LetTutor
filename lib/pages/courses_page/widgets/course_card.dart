@@ -1,21 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lettutor/models/course.dart';
 
-class Course extends StatelessWidget {
-  const Course(
-      {Key? key,
-      required this.courseName,
-      required this.description,
-      required this.price,
-      required this.level,
-      required this.onPressed})
+class CourseCard extends StatelessWidget {
+  const CourseCard(
+      {Key? key, required this.courseData, required this.onPressed})
       : super(key: key);
 
-  final courseName;
-  final description;
-  final price;
-  final level;
-  final onPressed;
+  final Course courseData;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +31,7 @@ class Course extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  imageUrl:
-                      'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1385191091i/52084.jpg',
+                  imageUrl: courseData.imageUrl ?? '',
                 ),
               ),
               Flexible(
@@ -49,18 +41,19 @@ class Course extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        courseName,
+                        courseData.name ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Text(
-                        description,
+                        courseData.description ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const Expanded(child: SizedBox()),
-                      Text('$level • $price lesson')
+                      Text(
+                          '${courseData.level} • ${courseData.topics?.length} lesson')
                     ],
                   ),
                 ),

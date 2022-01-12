@@ -1,10 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lettutor/pages/courses_page/courses_page.dart';
-import 'package:lettutor/pages/courses_page/widgets/course.dart';
-import 'package:lettutor/pages/explore_course_page/explore_course_page.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/book_schedule_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/report_dialog.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/reviews_dialog.dart';
@@ -12,7 +7,6 @@ import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/custom_circle_avatar.dart';
 import 'package:lettutor/widgets/expandable_text.dart';
-import 'package:lettutor/widgets/star_rating_bar.dart';
 import 'package:lettutor/widgets/tag.dart';
 import 'package:lettutor/widgets/time_table.dart';
 
@@ -262,18 +256,18 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                     'Suggested courses',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Course(
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ExploreCoursePage())),
-                        courseName: 'Bussiness English',
-                        description: 'Description',
-                        price: 100,
-                        level: level[Random().nextInt(2).toInt()]),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(16),
+                  //   child: CourseCard(
+                  //       onPressed: () => Navigator.of(context).push(
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   const ExploreCoursePage())),
+                  //       courseName: 'Bussiness English',
+                  //       description: 'Description',
+                  //       price: 100,
+                  //       level: level[Random().nextInt(2).toInt()]),
+                  // ),
                   Row(
                     children: [
                       PrimaryButton(
