@@ -95,10 +95,16 @@ class _TutorsPageState extends State<TutorsPage> {
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: TutorCard(
                                   tutor: e,
-                                  onClickCard: () => Navigator.of(context).push(
+                                  onClickCard: () async {
+                                    await Navigator.of(context).push(
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              TutorProfilePage(tutor: e))),
+                                        builder: (context) => TutorProfilePage(
+                                          tutorId: e.userId ?? e.user!.id,
+                                        ),
+                                      ),
+                                    );
+                                    tutorsBloc.getTutors();
+                                  },
                                 ),
                               ),
                             )

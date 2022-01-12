@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Favorite Tutors',
+                          'Recommended Tutors',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                         if (snapshot.data!.isEmpty) {
                           return Container(
                             margin: const EdgeInsets.only(top: 200),
-                            child: const Text('Currently no favorite tutor'),
+                            child: const Text('Currently no recommended tutor'),
                           );
                         }
                         return Column(
@@ -169,10 +169,14 @@ class _HomePageState extends State<HomePage> {
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: TutorCard(
                                     tutor: e,
-                                    onClickCard: () => Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                TutorProfilePage(tutor: e))),
+                                    onClickCard: () =>
+                                        Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => TutorProfilePage(
+                                          tutorId: e.userId ?? e.user!.id!,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               )

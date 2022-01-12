@@ -43,40 +43,16 @@ class AppProvider extends ChangeNotifier {
     return false;
   }
 
-  void addFavoriteTutors(String tutorId) {
-    favoriteTutors.add(tutorId);
-    setFavorite(tutorId);
-    saveFavoriteTutorsToStorage();
-    inspect(favoriteTutors);
-    notifyListeners();
-  }
-
-  void removeFavoriteTutors(String tutorId) {
-    favoriteTutors.removeWhere((id) => id == tutorId);
-    setFavorite(tutorId);
-    saveFavoriteTutorsToStorage();
-    notifyListeners();
-  }
-
-  Future<void> saveFavoriteTutorsToStorage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('favorite_tutors', favoriteTutors);
-  }
-
-  Future<void> loadFavoriteTutor() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    favoriteTutors = prefs.getStringList('favorite_tutors') ?? [];
-  }
-
-  Future<void> setFavorite(String id) async {
+  static Future<void> setFavorite(String id) async {
     try {
       var dio = Http().client;
       dio.options.headers["Authorization"] =
           "Bearer ${auth?.tokens?.access?.token}";
-      await dio.post(
+      final result = await dio.post(
         "user/manageFavoriteTutor",
         data: {'tutorId': id},
       );
+      inspect(result);
     } catch (e) {
       inspect(e);
     }

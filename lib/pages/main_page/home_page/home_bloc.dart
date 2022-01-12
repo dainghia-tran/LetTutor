@@ -51,10 +51,7 @@ class HomeBloc extends ChangeNotifier {
           ),
         ),
       ).where((element) => element.id != null).toList();
-      for (final e in result) {
-        AppProvider.of(context, listen: false)
-            .addFavoriteTutors(e.user == null ? e.userId! : e.user!.id ?? '');
-      }
+
       _tutorsController.sink.add(result);
     } catch (e) {
       inspect(e);

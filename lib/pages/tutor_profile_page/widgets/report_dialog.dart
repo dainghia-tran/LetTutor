@@ -1,20 +1,31 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:lettutor/app_provider.dart';
+import 'package:lettutor/constants/http.dart';
 import 'package:lettutor/widgets/button/primary_button.dart';
 import 'package:lettutor/widgets/button/secondary_button.dart';
 
 class ReportDialog extends StatefulWidget {
-  const ReportDialog({Key? key, required this.name}) : super(key: key);
-  final name;
+  const ReportDialog({Key? key, required this.name, required this.tutorId})
+      : super(key: key);
+
+  final String tutorId;
+  final String name;
 
   @override
   _ReportDialogState createState() => _ReportDialogState();
 }
 
 class _ReportDialogState extends State<ReportDialog> {
-  var cbAnnoying = false;
-  var cbFake = false;
-  var cvInappropriate = false;
   final textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,46 +75,8 @@ class _ReportDialogState extends State<ReportDialog> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Checkbox(
-                        value: cbAnnoying,
-                        onChanged: (_) => setState(() {
-                              cbAnnoying = !cbAnnoying;
-                            })),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Text('This tutor annoying me')
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                        value: cbFake,
-                        onChanged: (_) => setState(() {
-                              cbFake = !cbFake;
-                            })),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Expanded(
-                        child: Text(
-                            'This profile is pretending to be someone or is fake'))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                        value: cvInappropriate,
-                        onChanged: (_) => setState(() {
-                              cvInappropriate = !cvInappropriate;
-                            })),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Text('Inappropriate profile photo')
-                  ],
+                const SizedBox(
+                  height: 16,
                 ),
                 TextFormField(
                   controller: textController,
@@ -126,10 +99,7 @@ class _ReportDialogState extends State<ReportDialog> {
                     PrimaryButton(
                         isDisabled: false,
                         onPressed: () {
-                          const snackBar =
-                              SnackBar(content: Text('Report sent!'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Navigator.of(context).pop();
+                          sendReport(context);
                         },
                         text: 'Submit')
                   ],
@@ -140,5 +110,38 @@ class _ReportDialogState extends State<ReportDialog> {
         ],
       ),
     );
+  }
+
+  Future<void> sendReport(BuildContext context) async {
+    try {
+      var accessToken = AppProvider.auth?.tokens?.access?.token;
+      var dio = Http().client;
+      dio.options.headers["Authorization"] = "Bearer $accessToken";
+
+      await dio.post(
+        "report",
+        data: {
+          "tutorId": widget.tutorId,
+          "content": textController.text,
+        },
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Report sent",
+          ),
+        ),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      inspect(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            (e as DioError).response?.data["message"],
+          ),
+        ),
+      );
+    }
   }
 }
