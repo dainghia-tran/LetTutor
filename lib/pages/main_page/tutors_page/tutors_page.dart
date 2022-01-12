@@ -82,7 +82,7 @@ class _TutorsPageState extends State<TutorsPage> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: StreamBuilder<List>(
+                child: StreamBuilder<List?>(
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
@@ -105,6 +105,7 @@ class _TutorsPageState extends State<TutorsPage> {
                                     );
                                     tutorsBloc.getTutors();
                                   },
+                                  needReload: () => tutorsBloc.getTutors(),
                                 ),
                               ),
                             )

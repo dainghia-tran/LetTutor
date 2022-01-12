@@ -14,7 +14,6 @@ class User {
   String? avatar;
   String? country;
   String? phone;
-  @JsonKey(nullable: true)
   List<String>? roles;
   String? language;
   String? birthday;
@@ -25,7 +24,6 @@ class User {
   bool? isPhoneActivated;
   DateTime? createdAt;
   DateTime? updatedAt;
-  @JsonKey(nullable: true)
   List<Feedback>? feedbacks;
   Tutor? tutorInfo;
   User();

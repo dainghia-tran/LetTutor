@@ -5,10 +5,10 @@ import 'package:lettutor/repositories/tutor_repo.dart' as tutor_repo;
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 
 class TutorsBloc {
-  List<Tutor> tutors = [];
-  final _tutorsController = StreamController<List>();
+  List<Tutor>? tutors = [];
+  final _tutorsController = StreamController<List?>();
 
-  Stream<List> get tutorsStream => _tutorsController.stream;
+  Stream<List?> get tutorsStream => _tutorsController.stream;
 
   void initialize() {
     getTutors();
@@ -16,8 +16,9 @@ class TutorsBloc {
 
   void getTutors() async {
     try {
+      _tutorsController.add(null);
       tutors = await tutor_repo.getTutors(1);
-      _tutorsController.add(tutors..sort(tutor_utils.compareRating));
+      _tutorsController.add(tutors?..sort(tutor_utils.compareRating));
     } catch (e) {
       _tutorsController.addError(e);
     }
@@ -25,7 +26,7 @@ class TutorsBloc {
 
   void searchTutors(String keyword) {
     _tutorsController.add(tutors
-        .where((element) => element.toString().contains(keyword))
+        ?.where((element) => element.toString().contains(keyword))
         .toList());
   }
 
@@ -34,7 +35,7 @@ class TutorsBloc {
       _tutorsController.add(tutors);
     } else {
       _tutorsController.add(tutors
-          .where((element) => element.specialties!
+          ?.where((element) => element.specialties!
               .replaceAll('-', ' ')
               .toLowerCase()
               .contains(tag.toLowerCase()))
@@ -44,7 +45,7 @@ class TutorsBloc {
 
   void filterTutorsByCountry(String countryCode) {
     _tutorsController.add(tutors
-        .where((element) => element.country?.contains(countryCode) ?? false)
+        ?.where((element) => element.country?.contains(countryCode) ?? false)
         .toList());
   }
 

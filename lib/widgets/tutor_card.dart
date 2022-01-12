@@ -15,10 +15,12 @@ class TutorCard extends StatefulWidget {
     Key? key,
     required this.tutor,
     required this.onClickCard,
+    required this.needReload,
   }) : super(key: key);
 
   final Tutor tutor;
   final onClickCard;
+  final VoidCallback needReload;
 
   @override
   _TutorCardState createState() => _TutorCardState();
@@ -72,11 +74,14 @@ class _TutorCardState extends State<TutorCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomCircleAvatar(avatarUrl: widget.tutor.avatar ?? ''),
+                  CustomCircleAvatar(
+                      avatarUrl: widget.tutor.user?.avatar ??
+                          (widget.tutor.avatar ?? "")),
                   GestureDetector(
                     onTap: () async {
                       await AppProvider.setFavorite(
                           widget.tutor.user?.id ?? (widget.tutor.userId ?? ''));
+                      if (widget.needReload != null) widget.needReload!();
                     },
                     child: Icon(
                         _isFavorite ? Boxicons.bxs_heart : Boxicons.bx_heart,
@@ -88,13 +93,14 @@ class _TutorCardState extends State<TutorCard> {
                 height: 8,
               ),
               Text(
-                widget.tutor.name ?? '',
+                widget.tutor.user?.name ?? (widget.tutor.name ?? ""),
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               StarRatingBar(
-                stars: tutor_utils
-                    .getRatingFromFeedbacks(widget.tutor.feedbacks ?? []),
+                stars: widget.tutor.avgRating ??
+                    tutor_utils
+                        .getRatingFromFeedbacks(widget.tutor.feedbacks ?? []),
               ),
               Wrap(children: _tags),
               const SizedBox(

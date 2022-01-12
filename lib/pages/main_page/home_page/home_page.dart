@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Recommended Tutors',
+                          'Favorite Tutors',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -159,7 +159,8 @@ class _HomePageState extends State<HomePage> {
                         if (snapshot.data!.isEmpty) {
                           return Container(
                             margin: const EdgeInsets.only(top: 200),
-                            child: const Text('Currently no recommended tutor'),
+                            child:
+                                const Text('Add a favorite tutor to your list'),
                           );
                         }
                         return Column(
@@ -177,6 +178,8 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                     ),
+                                    needReload: () =>
+                                        _homeBloc.initialize(context),
                                   ),
                                 ),
                               )

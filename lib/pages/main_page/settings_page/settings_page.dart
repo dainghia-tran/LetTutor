@@ -112,27 +112,9 @@ class _SettingsPageState extends State<SettingsPage>
                   padding: const EdgeInsets.only(top: 16),
                   child: GestureDetector(
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SessionHistoryPage())),
-                    child: const SettingItem(
-                        text: 'Session History', iconData: Icons.history),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const CoursesPage())),
                     child: const SettingItem(
                         text: 'Courses', iconData: Icons.school),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const EBooksPage())),
-                    child: const SettingItem(
-                        text: 'E-books', iconData: Icons.menu_book),
                   ),
                 ),
                 Padding(
@@ -153,18 +135,10 @@ class _SettingsPageState extends State<SettingsPage>
                           text: 'Become a tutor',
                           iconData: Icons.emoji_people)),
                 ),
-                const SizedBox(
-                  height: 32,
-                ),
                 const Padding(
                   padding: EdgeInsets.only(top: 16),
                   child: SettingItem(
                       text: 'Our Website', iconData: Icons.language),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: SettingItem(
-                      text: 'Facebook', iconData: Boxicons.bxl_facebook_circle),
                 ),
                 const SizedBox(
                   height: 48,
