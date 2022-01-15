@@ -20,9 +20,7 @@ class Course {
   int? default_price;
   int? course_price;
   bool? visible;
-  @JsonKey(nullable: true)
   List<Category>? categories;
-  @JsonKey(nullable: true)
   List<Topic>? topics;
 
   Course();

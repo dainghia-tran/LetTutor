@@ -177,7 +177,7 @@ class _CoursesPageState extends State<CoursesPage> {
                               onPressed: () => Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const ExploreCoursePage(),
+                                      ExploreCoursePage(courseData: course),
                                 ),
                               ),
                             ),
