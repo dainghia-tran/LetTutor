@@ -5,17 +5,28 @@ import 'package:lettutor/models/tutor.dart';
 
 import '../app_provider.dart';
 
-Future<List<Tutor>> getTutors(int page) async {
+Future<List<Tutor>> getTutors(int page, String specialties) async {
   try {
     var dio = Http().client;
 
     dio.options.headers["Authorization"] =
         "Bearer ${AppProvider.auth?.tokens?.access?.token}";
-    var res = await dio.get(
-      "tutor/more?perPage=9&page=$page",
+    dio.options.headers["Content-Type"] = "application/json";
+    final payload = {
+      "page": page,
+      "perPage": 12,
+      if (specialties != '')
+        'filters': {
+          'specialties': [specialties],
+        }
+    };
+    inspect(payload);
+    var res = await dio.post(
+      "tutor/search",
+      data: payload,
     );
     inspect(res.data);
-    Iterable i = res.data['tutors']["rows"];
+    Iterable i = res.data["rows"];
     List<Tutor>? result = List<Tutor>.from(
       await Future.wait(
         i.map(

@@ -1,23 +1,42 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:lettutor/models/tutor.dart';
 import 'package:lettutor/repositories/tutor_repo.dart' as tutor_repo;
 import 'package:lettutor/utils/tutor_utils.dart' as tutor_utils;
 
-class TutorsBloc {
+class TutorsPageProvider extends ChangeNotifier {
   List<Tutor>? tutors = [];
   final _tutorsController = StreamController<List?>();
+  int page = 1;
+  bool hasLoadMore = true;
+  String currentSpeciality = "";
 
   Stream<List?> get tutorsStream => _tutorsController.stream;
 
   void initialize() {
-    getTutors();
+    getTutors(true);
   }
 
-  void getTutors() async {
+  void getTutors(bool isReset) async {
     try {
       _tutorsController.add(null);
-      tutors = await tutor_repo.getTutors(1);
+      if (isReset) {
+        hasLoadMore = true;
+        page = 1;
+        final result = await tutor_repo.getTutors(page, currentSpeciality);
+        tutors = result;
+        if (result.length < 4) {
+          hasLoadMore = false;
+        }
+      } else {
+        final result = await tutor_repo.getTutors(page, currentSpeciality);
+        tutors?.addAll(result);
+        if (result.length < 4) {
+          hasLoadMore = false;
+        }
+      }
+      page++;
       _tutorsController.add(tutors?..sort(tutor_utils.compareRating));
     } catch (e) {
       _tutorsController.addError(e);
@@ -31,15 +50,13 @@ class TutorsBloc {
   }
 
   void filterTutorsByTag(String tag) {
+    page = 1;
     if (tag == 'All') {
-      _tutorsController.add(tutors);
+      currentSpeciality = "";
+      getTutors(true);
     } else {
-      _tutorsController.add(tutors
-          ?.where((element) => element.specialties!
-              .replaceAll('-', ' ')
-              .toLowerCase()
-              .contains(tag.toLowerCase()))
-          .toList());
+      currentSpeciality = tag.toLowerCase().replaceAll(' ', '-');
+      getTutors(true);
     }
   }
 
