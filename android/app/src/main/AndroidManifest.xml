@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dainghia.lettutor">
    <application
-        android:label="lettutor"
+        android:label="LetTutor"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
