@@ -263,8 +263,9 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) =>
-                                ReviewsDialog(feedbacks: tutor.feedbacks ?? []),
+                            builder: (context) => ReviewsDialog(
+                                feedbacks:
+                                    tutor.user?.feedbacks ?? tutor.feedbacks!),
                           );
                         },
                         child: Column(

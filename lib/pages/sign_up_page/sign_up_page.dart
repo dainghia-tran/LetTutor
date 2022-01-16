@@ -123,7 +123,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == null || value.isEmpty) {
                               return "Required";
                             } else {
-                              return null;
+                              RegExp regExp = RegExp(
+                                  r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                              if (!regExp.hasMatch(value)) {
+                                return "Password must contain at least 8 characters, one letter and one number";
+                              } else {
+                                return null;
+                              }
                             }
                           },
                         ),

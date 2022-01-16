@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lettutor/pages/tutor_profile_page/widgets/user_review.dart';
+import 'package:lettutor/models/feedback.dart' as feedback;
 
 class ReviewsDialog extends StatelessWidget {
   const ReviewsDialog({Key? key, required this.feedbacks}) : super(key: key);
-  final List feedbacks;
+  final List<feedback.Feedback> feedbacks;
 
   @override
   Widget build(BuildContext context) {
