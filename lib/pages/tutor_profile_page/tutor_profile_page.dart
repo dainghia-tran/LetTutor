@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lettutor/constants/http.dart';
@@ -60,6 +61,11 @@ class _TutorProfilePageState extends State<TutorProfilePage> {
 
   Future<void> getDetail() async {
     try {
+      await FirebaseAnalytics.instance
+          .logEvent(name: 'view_tutor_profile', parameters: {
+        'tutor_id': widget.tutorId,
+      });
+
       var dio = Http().client;
       var accessToken = AppProvider.auth?.tokens?.access?.token;
       dio.options.headers["Authorization"] = "Bearer $accessToken";
