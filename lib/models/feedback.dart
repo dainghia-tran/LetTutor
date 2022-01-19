@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:lettutor/models/user.dart';
 
 part 'feedback.g.dart';
@@ -9,14 +10,28 @@ class Feedback {
   String? bookingId;
   String? firstId;
   String? secondId;
-  int? rating;
+  double? rating;
   String? content;
   DateTime? createdAt;
   DateTime? updatedAt;
   User? firstInfo;
   User? secondInfo;
-  Feedback();
+
+  Feedback({
+    this.id,
+    this.bookingId,
+    this.firstId,
+    this.secondId,
+    this.rating,
+    this.content,
+    this.createdAt,
+    this.updatedAt,
+    this.firstInfo,
+    this.secondInfo,
+  });
+
   factory Feedback.fromJson(Map<String, dynamic> json) =>
       _$FeedbackFromJson(json);
+
   Map<String, dynamic> toJson() => _$FeedbackToJson(this);
 }

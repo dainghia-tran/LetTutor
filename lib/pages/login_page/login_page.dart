@@ -219,6 +219,7 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       }
     } catch (e) {
+      inspect(e);
       final snackbar = SnackBar(
           content: Text((e as DioError).response?.data['message'] ??
               'Something went wrong'));
